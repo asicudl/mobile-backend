@@ -1,0 +1,53 @@
+<section data-ng-controller="MessagesController" data-ng-init="findOne()">
+  <span>{{message.created | date:'medium'}}</span> /
+  <span>{{message.user.name}}</span>
+  <h2>{{message.subject}}</h2>
+  <div data-ng-if="hasAuthorization(message)">
+    <a class="btn" href="/#!/messages/{{message._id}}/edit">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn" data-ng-click="remove(message);">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+ <div  class="form-horizontal col-md-6" >
+    <div class="form-group" >
+         <label class="col-md-3 control-label">Subject</label>
+        <div class="col-md-9">
+            {{message.subject}}
+        </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 control-label">Site ID</label>
+      <div class="col-md-9">
+       {{message.siteId}}
+      </div>
+    </div>  
+      
+    <div class="form-group">
+      <label class="col-md-3 control-label">Site Title</label>
+      <div class="col-md-9">
+          {{message.siteTitle}}
+      </div>
+    </div>  
+    
+   <div class="form-group">
+      <label class="col-md-3 control-label">Notification URL</label>
+      <div class="col-md-9">
+          {{message.notiURL}}
+      </div>
+    </div>   
+    
+    <div class="form-group">
+        <label class="col-md-3 control-label">Receptients</label>
+        <ul class="col-md-9 rcplist">
+          <li ng-repeat="rcp in message.receptientsIds" >{{rcp}}</li>
+        </ul> 
+    </div>        
+        
+    <div class="form-group">
+        <textarea disabled name="content" data-ng-model="message.content" id="content" cols="30" rows="10" placeholder="Content" class="form-control" required></textarea>
+      </div>
+    </form>
+     
+</section>
