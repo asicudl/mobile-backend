@@ -64,10 +64,15 @@ test/coverage/
 modules/public/
 modules/views/
 /public/build/
-/packages/custom/
 /packages/contrib/
 
 # --------------------
 # vim Files
 # --------------------
 *.swp
+
+###
+# My custom modules ignores
+##
+
+packages/custom/message/server/controllers/msg-settings.json
