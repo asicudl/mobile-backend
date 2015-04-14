@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
   GitHubStrategy = require('passport-github').Strategy,
   GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
   LinkedinStrategy = require('passport-linkedin').Strategy,
+  BasicStrategy = require('passport-http').BasicStrategy,
   User = mongoose.model('User'),
   config = require('meanio').loadConfig();
 
@@ -189,6 +190,18 @@ module.exports = function(passport) {
       });
     }
   ));
+    
+   passport.use(new BasicStrategy(
+    function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.authenticate(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
+    
 
   // use linkedin strategy
   passport.use(new LinkedinStrategy({

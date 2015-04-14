@@ -127,7 +127,7 @@ exports.show = function(req, res) {
  * List of Messages
  */
 exports.all = function(req, res) {
-  Message.find().sort('-created').populate('user', 'name username').exec(function(err, messages) {
+  Message.find().sort('-created').limit(50).populate('user', 'name username').exec(function(err, messages) {
     if (err) {
       return res.status(500).json({
         error: 'Cannot list the messages'
