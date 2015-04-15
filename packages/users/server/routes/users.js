@@ -27,6 +27,7 @@ module.exports = function(MeanUser, app, auth, database, passport) {
     });
 
  // Setting the local strategy route
+  
 
 app.route('/login')
     .post(passport.authenticate('local', {
@@ -44,7 +45,7 @@ app.route('/login')
       // To avoid displaying unneccesary social logins
       var clientIdProperty = 'clientID';
       var defaultPrefix = 'DEFAULT_';
-      var socialNetworks = []; //ugly hardcoding :(
+      var socialNetworks = ['facebook','linkedin','twitter','github','google']; //ugly hardcoding :(
       var configuredApps = {};
       for (var network in socialNetworks){
         var netObject = config[socialNetworks[network]];
@@ -65,5 +66,5 @@ app.route('/login')
         redirect: (req.user.roles.indexOf('admin') !== -1) ? req.get('referer') : false
       });
   });
-
+    
 };

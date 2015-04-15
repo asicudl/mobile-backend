@@ -4,43 +4,23 @@ angular.module('mean.system').controller('IndexController', ['$scope', 'Global',
   function($scope, Global) {
     $scope.global = Global;
     $scope.sites = {
-      'makeapoint':{
-        'name':'makeapoint',
-        'text':'Makeapoint is a platform to craft and fine-tune ideas and messages providing a graphical experience which brough an offline methodlogy online',
-        'author':'Linnovate',
-        'link':'http://www.linnovate.net',
-        'image':'/theme/assets/img/makeapoint.png'
-      },
-      'cactus':{
-        'name':'Cactus Intranet',
-        'text':'Cactus Intranet is an enterprise social network with features like real-time newsfeed, notifications, groups, events, polls, referral system etc. The system has role based permission system, allowing different stakeholders access and controls relevant to them.',
-        'author':'QED42',
-        'link':'http://www.qed42.com',
-        'image':'/theme/assets/img/cactus.png'
+      
+      'udlapp':{
+        'name':'UdL Messagig APP',
+        'text':'This APP goal is deliver instant messages to students from Campus Virtual course sites. Students would be able to see institutional agenda as well as Services Directory information',
+        'author':'Projectes inters (ASIC)',
+        'link':'http://www.udl.cat',
+        'image':'/system/assets/img/imatge-portada-back.png'
       }
     };
     $scope.packages = {
-      'gmap':{
-        'name':'gmap',
-        'text':'gmap lets you add geographical information to your applications objects',
-        'author':'linnovate',
-        'link':'http://www.qed42.com',
-        'image':'/theme/assets/img/gmap.png'
+      'cv':{
+        'name':'Campus Virtual',
+        'text':'Campus Virtual is the learning management system used by UdL and powered by Sakai technology to bring ',
+        'author':'Projectes inters (ASIC)',
+        'link':'http://www.udl.cat',
+        'image':'/system/assets/img/cv-landing.png'
       },
-      'upload':{
-        'name':'Upload',
-        'text':'hello text',
-        'author':'Linnovate',
-        'link':'http://www.linnovate.net',
-        'image':'http://cdn.designbyhumans.com/pictures/blog/09-2013/pop-culture-cats/Pop_Culture_Cats_Hamilton_Hipster.jpg'
-      },
-      'socket':{
-        'name':'Socket',
-        'text':'Socket.io support',
-        'author':'Linnovate',
-        'link':'http://www.linnovate.net',
-        'image':'http://cdn.designbyhumans.com/pictures/blog/09-2013/pop-culture-cats/Pop_Culture_Cats_Hamilton_Hipster.jpg'
-      }
     };
 
     $scope.$watch(function () {

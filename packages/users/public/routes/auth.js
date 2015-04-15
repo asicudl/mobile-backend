@@ -37,13 +37,6 @@ angular.module('mean.users').config(['$meanStateProvider',
           loggedin: checkLoggedOut
         }
       })
-      .state('auth.register', {
-        url: '/register',
-        templateUrl: 'users/views/register.html',
-        resolve: {
-          loggedin: checkLoggedOut
-        }
-      })
       .state('forgot-password', {
         url: '/forgot-password',
         templateUrl: 'users/views/forgot-password.html',

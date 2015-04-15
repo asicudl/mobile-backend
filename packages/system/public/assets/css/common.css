@@ -50,3 +50,8 @@ footer p {
 /*.ng-valid.ng-dirty{*/
     /*border-color:#78FA89;*/
 /*}*/
+.logo{
+  background: url('/system/assets/img/favicon.ico') 5px 0 no-repeat;
+  background-size: auto 100%;
+  padding-left: 40px;
+}
