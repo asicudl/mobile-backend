@@ -13,7 +13,7 @@ var hasAuthorization = function(req, res, next) {
 module.exports = function(Messages, app, auth) {
 
   app.route('/messages')
-    .get(messages.all)
+    .get(auth.requiresLogin,messages.all)
     .post(auth.requiresLogin, messages.create);
   app.route('/messages/:messageId')
     .get(auth.isMongoId, messages.show)

@@ -30,7 +30,7 @@ module.exports = function(MeanUser, app, auth, database, passport) {
   
 
 app.route('/login')
-    .post(passport.authenticate('local', {
+    .post(passport.authenticate('local-mean', {
       failureFlash: true
     }), function(req, res) {
       res.send({
@@ -66,5 +66,4 @@ app.route('/login')
         redirect: (req.user.roles.indexOf('admin') !== -1) ? req.get('referer') : false
       });
   });
-    
 };

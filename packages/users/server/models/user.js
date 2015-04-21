@@ -85,6 +85,7 @@ var UserSchema = new Schema({
   linkedin: {}
 });
 
+
 /**
  * Virtuals
  */
