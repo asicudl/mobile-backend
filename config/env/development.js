@@ -5,6 +5,9 @@ module.exports =
 ldap:{
     "url": "ldap://cialis.udl.net",
     "base":"ou=People,dc=udl,dc=es"
+},
+token:{
+	"secret":"temp"
 }
 };
 

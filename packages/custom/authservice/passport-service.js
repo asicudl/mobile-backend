@@ -9,7 +9,9 @@ var mongoose = require('mongoose'),
 
 module.exports = function(passport) {
     
-    passport.use(new LDAPStrategy(
+    /*This strategy will run over LDAP and generate a JWT to keep API operations*/
+    
+    passport.use('official',new LDAPStrategy(
         {
             server: {
                 url: config.ldap.url,
@@ -55,8 +57,9 @@ module.exports = function(passport) {
     ));
     
     
-  //Token local strategy
-  passport.use('localtoken', new TokLocalStrategy(
+  /*This strategy will run over LOCAL mobile app token storage and generate a JWT to keep API operations*/
+    
+  passport.use('appstoredtoken', new TokLocalStrategy(
       {
           usernameField: 'username',
           passwordField: 'token',

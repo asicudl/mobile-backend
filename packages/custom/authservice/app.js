@@ -15,6 +15,8 @@ Authservice.register(function(app, auth, database, passport) {
 
     //We enable routing. By default the Package Object is passed to the routes
     Authservice.routes(app, auth, database, passport);
+    
+    //Initialize custom passport policies for mobile API
     require('./passport-service')(passport);    
     
     Authservice.routes(app, auth, database, passport);
