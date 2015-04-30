@@ -51,7 +51,8 @@
     "passport-http": "~0.2.2",
     "passport-ldapauth": "~0.3.0",
     "express-jwt": "~3.0.0",
-    "jsonwebtoken": "~5.0.0"
+    "jsonwebtoken": "~5.0.0",
+    "util": "~0.10.3"
   },
   "devDependencies": {
     "expect.js": "0.3.1",

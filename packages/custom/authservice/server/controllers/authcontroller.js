@@ -4,17 +4,17 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  AuthClient = mongoose.model('AuthClient');
-  
+  AuthClient = mongoose.model('AuthClient'),
+  util = require('util');
 
 /*
 * Authorization to change whatever that about your username
 */ 
 
 exports.hasAuthorization = function (req,res,next){
-  //Security 
     
-   if (!req.user || !req.user.username){
+  //Security at this point is based on jwt token and is extracted by express-jwt
+  if (!req.user || !req.user.username){
         res.status(400).json([{
             msg: 'You must be logged in to create a device',
             param: 'username'
@@ -33,53 +33,73 @@ exports.hasAuthorization = function (req,res,next){
 /**
  * Create authclient
  */
-exports.create = function(req, res, next) {
-    
-  var authclient = new AuthClient(req.body);
+exports.createOrUpdate = function(req, res, next) {
 
-  req.assert('username', 'Username cannot be more than 20 characters').len(1, 20);
-  req.assert('device', 'Device id cannot be more than 20 characters').len(1, 20);
-  
-  var errors = req.validationErrors();
-  if (errors) {
-    return res.status(400).send(errors);
-  }
-
-  //Create a random token
-  authclient.token = authclient.makeSalt();
-  authclient.authuser = req.user;
+   AuthClient
+    .findOne({
+        username: req.body.username,
+        device: req.body.device
+    })
+    .exec(function(err, authclient) {
+      if (err) return next(err);
       
-  authclient.save(function(err) {
-    if (err) {
-      switch (err.code) {
-        case 11000:
-        case 11001:
-          res.status(400).json([{
-            msg: 'Username already taken',
-            param: 'username'
-          }]);
-          break;
-        default:
-          var modelErrors = [];
+       if (!authclient) {
+         authclient  = new AuthClient(req.body); 
+      }
+      
+       req.assert('username', 'Username cannot be more than 20 characters').len(1, 20);
+       req.assert('device', 'Device id cannot be more than 20 characters').len(1, 20);
+  
+        var errors = req.validationErrors();
+        
+        if (errors) {
+            console.log ('has errors');
+            return res.status(400).send(errors);
+        }
 
-          if (err.errors) {
+        //Create a random token
+        authclient.token = authclient.makeSalt();
+        authclient.authuser = req.user._id;
 
-            for (var x in err.errors) {
-              modelErrors.push({
-                param: x,
-                msg: err.errors[x].message,
-                value: err.errors[x].value
-              });
+        authclient.save(function(err) {
+        
+            if (err) {
+                switch (err.code) {
+                    case 11000:
+                    case 11001:
+                      res.status(400).json([{
+                        msg: 'Username already taken',
+                        param: 'username'
+                      }]);
+                      break;
+                    default:
+                      var modelErrors = [];
+                      console.log ('default');
+                      if (err.errors) {
+                          console.log ('has errors');
+                        for (var x in err.errors) {
+                        console.log ('this error is ' + err.errors[x].message);  
+                        modelErrors.push({
+                            param: x,
+                            msg: err.errors[x].message,
+                            value: err.errors[x].value
+                          });
+                        }
+
+                        res.status(400).json(modelErrors);
+                      }
+                }
+        
+                
+                return res.status(400).json([{
+                    msg: 'Error creating token',
+                    param: 'username'
+                }]);
             }
 
-            res.status(400).json(modelErrors);
-          }
-      }
-
-      return res.status(400);
-    }
-    
-    res.json ({'token': authclient.token});
-  });
+        res.json ({'token': authclient.token});
+        });     
+   });
 };
+
 

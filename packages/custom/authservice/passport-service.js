@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
   AuthClient = mongoose.model('AuthClient'),
   config = require('meanio').loadConfig();
 
-module.exports = function(passport) {
+module.exports = function(passport){
     
     /*This strategy will run over LDAP and generate a JWT to keep API operations*/
     
@@ -93,5 +93,4 @@ module.exports = function(passport) {
           });
         }
     ));
-    
 };

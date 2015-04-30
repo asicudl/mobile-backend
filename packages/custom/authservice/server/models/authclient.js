@@ -43,7 +43,7 @@ var AuthClientSchema = new Schema({
 });
 
 //Keep the schema indexed by the search path
-AuthClientSchema.index({username: 1, device: 1});
+AuthClientSchema.index({username: 1, device: 1}, {unique: true}); 
 
 
 //Add a virtual field in the schema
@@ -109,6 +109,7 @@ AuthClientSchema.statics.findAuthClient = function (username,device,callback){
             callback(err,authclient);  
       });
 };
+
 
 
 mongoose.model('AuthClient', AuthClientSchema);

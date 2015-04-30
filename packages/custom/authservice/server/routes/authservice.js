@@ -8,37 +8,36 @@ var authservice = require('../controllers/authcontroller'),
 
 /* jshint -W098 */
 // The Package is past automatically as first parameter
-module.exports = function(Authservice, app, auth, database, passport) {
+module.exports = function(Authservice, app, auth, database, passport){
 
-    
     // We are going to protect /api routes with JWT
     app.use('/api', expressJwt({secret: config.token.secret}));
     
-    /*app.use(function(req, res, next) {
+    app.use(function(req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        res.header('Access-Control-Allow-Headers', 'Authorization, Origin, X-Requested-With, Content-Type, Accept');
         next();
     });
     
     //EVER response the options
     app.options('*', function(req, res){
-        res.send(200);
-    });*/
+        res.sendStatus(200);
+    });
  
   var sendToken = function (req,res){
-       var token = jwt.encode({ user: req.user}, config.token.secret);
-       res.json({ token : token });
+       var token = jwt.sign(req.user, config.token.secret);
+       res.json({token : token});
   };
     
-  app.route('/api/auth/official').post(passport.authenticate('official',{
-      failureFlash: true
+  app.route('/auth/official').post(passport.authenticate('official',{
+      session: false
     }),sendToken);
     
-  app.route('/api/auth/token').post(passport.authenticate('appstoredtoken', {
-      failureFlash: true
+  app.route('/auth/token').post(passport.authenticate('appstoredtoken', {
+      session: false
     }), sendToken);
   
-   app.route('/auth/token/create').post(authservice.hasAuthorization, authservice.create);
+  app.route('/api/token/create').post(authservice.hasAuthorization, authservice.createOrUpdate);
     
 };
