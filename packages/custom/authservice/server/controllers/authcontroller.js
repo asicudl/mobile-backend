@@ -5,8 +5,7 @@
  */
 var mongoose = require('mongoose'),
   AuthClient = mongoose.model('AuthClient'),
-  util = require('util');
-
+  _ = require('lodash');
 /*
 * Authorization to change whatever that about your username
 */ 
@@ -19,14 +18,14 @@ exports.hasAuthorization = function (req,res,next){
             msg: 'You must be logged in to create a device',
             param: 'username'
           }]);
-   } else if (req.user.username !== req.body.username){
-          res.status(400).json([{
-            msg: 'You are not login as this user',
-            param: 'username'
-          }]);
-    }else{
+  }else if (_.contains(!req.user.roles,'udlaccount')){
+        res.status(400).json ([{
+            msg: 'It\'s a non official account',
+            param: 'role'
+        }]);
+  }else{
         next();
-    }
+   }
 };   
 
 
@@ -37,7 +36,7 @@ exports.createOrUpdate = function(req, res, next) {
 
    AuthClient
     .findOne({
-        username: req.body.username,
+        username: req.user.username,
         device: req.body.device
     })
     .exec(function(err, authclient) {

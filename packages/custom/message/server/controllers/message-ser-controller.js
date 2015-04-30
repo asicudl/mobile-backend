@@ -20,8 +20,10 @@ var options = {
     }*/
 };
 
-
-
+var lastWeek = function (){
+    var oneWeekAgo = new Date();
+    return oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);    
+};
 
 /**
  * Find message by id
@@ -137,3 +139,22 @@ exports.all = function(req, res) {
 
   });
 };
+
+
+/**
+ * List of Messages
+ */
+exports.toMe = function(req, res) {
+  //Get the last messages from date or the last week    
+  var searchCriteria =  {'receptientsIds' : req.user.username,'created' : {'$gt': req.date || lastWeek()}};
+    
+  Message.find(searchCriteria).sort('-created').populate('user', 'name username').exec(function(err, messages) {
+    if (err) {
+      return res.status(500).json({
+        error: 'Cannot list the messages'
+      });
+    }
+    res.json(messages);
+  });
+};
+

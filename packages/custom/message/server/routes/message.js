@@ -1,6 +1,7 @@
 'use strict';
 
 var messages = require('../controllers/message-ser-controller');
+  
 
 // Message authorization helpers
 var hasAuthorization = function(req, res, next) {
@@ -10,8 +11,10 @@ var hasAuthorization = function(req, res, next) {
   next();
 };
 
-module.exports = function(Messages, app, auth) {
+module.exports = function(Messages, app, auth, database,authservice) {
 
+  //Routes for authenticated by platform   (administrators, maintainers)
+    
   app.route('/messages')
     .get(auth.requiresLogin,messages.all)
     .post(auth.requiresLogin, messages.create);
@@ -20,6 +23,11 @@ module.exports = function(Messages, app, auth) {
     .put(auth.isMongoId, auth.requiresLogin, hasAuthorization, messages.update)
     .delete(auth.isMongoId, auth.requiresLogin, hasAuthorization, messages.destroy);
 
-  // Finish with setting up the messageId param
+  //Finish with setting up the messageId param
   app.param('messageId', messages.message);
+
+ //Define  the mobile api messages
+ app.route ('/api/messages')
+     .get (authservice.hasAuthorization, messages.toMe);    
+    
 };

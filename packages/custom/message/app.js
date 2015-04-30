@@ -11,10 +11,10 @@ var Message = new Module('message');
  * All MEAN packages require registration
  * Dependency injection is used to define required modules
  */
-Message.register(function(app, auth, database) {
+Message.register(function(app, auth, database,authservice) {
 
   //We enable routing. By default the Package Object is passed to the routes
-  Message.routes(app, auth, database);
+  Message.routes(app, auth, database,authservice);
 
   //We are adding a link to the main menu for all authenticated users
 Message.menus.add({

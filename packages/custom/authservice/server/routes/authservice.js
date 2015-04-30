@@ -10,6 +10,9 @@ var authservice = require('../controllers/authcontroller'),
 // The Package is past automatically as first parameter
 module.exports = function(Authservice, app, auth, database, passport){
 
+    //Initialize authService in the auth context
+    Authservice.hasAuthorization = authservice.hasAuthorization;
+    
     // We are going to protect /api routes with JWT
     app.use('/api', expressJwt({secret: config.token.secret}));
     
