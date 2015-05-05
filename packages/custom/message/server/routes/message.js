@@ -28,6 +28,6 @@ module.exports = function(Messages, app, auth, database,authservice) {
 
  //Define  the mobile api messages
  app.route ('/api/messages')
-     .get (authservice.hasAuthorization, messages.toMe);    
+     .post (authservice.hasAuthorization, messages.toMe);    
     
 };

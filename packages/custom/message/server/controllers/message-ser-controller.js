@@ -20,9 +20,19 @@ var options = {
     }*/
 };
 
-var lastWeek = function (){
-    var oneWeekAgo = new Date();
-    return oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);    
+var asFarLastWeek = function (curdate){
+    var today = new Date();
+    var dateReturn = new Date ();
+    dateReturn.setDate(today.getDate() - 7);
+
+   try{
+      var currentDate = new Date(curdate);	
+      dateReturn = (currentDate < dateReturn) ? dateReturn : currentDate;
+   }catch (error){
+    	console.log ('error transforming date' + error); 
+   }
+
+    return dateReturn;
 };
 
 /**
@@ -146,15 +156,19 @@ exports.all = function(req, res) {
  */
 exports.toMe = function(req, res) {
   //Get the last messages from date or the last week    
-  var searchCriteria =  {'receptientsIds' : req.user.username,'created' : {'$gt': req.date || lastWeek()}};
+  var ob = asFarLastWeek(req.body.lastMessageDate);
+  console.log ('er ' + ob);
+
+  var searchCriteria =  {'receptientsIds' : req.user.username,'created' : {'$gt': asFarLastWeek(req.body.lastMessageDate)}};
     
   Message.find(searchCriteria).sort('-created').populate('user', 'name username').exec(function(err, messages) {
     if (err) {
+	console.log('error ' + err);
       return res.status(500).json({
         error: 'Cannot list the messages'
       });
     }
-    res.json(messages);
+    res.json({'messages':messages,'currentDate': new Date()});
   });
 };
 
