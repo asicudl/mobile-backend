@@ -58,7 +58,7 @@ app.route('/login')
       res.send(configuredApps);
     });
     
-  app.route('/auth/basic').post(passport.authenticate('basic',{
+  app.route('/auth/basic').post(passport.authenticate('basic-sender',{
       failureFlash: true
     }), function(req, res) {
       res.send({

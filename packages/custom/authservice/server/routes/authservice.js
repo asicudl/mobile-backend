@@ -12,6 +12,7 @@ module.exports = function(Authservice, app, auth, database, passport){
 
     //Initialize authService in the auth context
     Authservice.hasAuthorization = authservice.hasAuthorization;
+    Authservice.canBeRegistered = passport.authenticate('basic-registration',{session: false});
     
     // We are going to protect /api routes with JWT
     app.use('/api', expressJwt({secret: config.token.secret}));

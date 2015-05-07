@@ -30,6 +30,11 @@ var MessageSchema = new Schema({
     required: false,
     trim: true
   },
+  author: {
+    type: String,
+    required: false,
+    trim: true
+  },
   notiURL:{
     type: String,
     required: false,

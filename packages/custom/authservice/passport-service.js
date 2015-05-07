@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
   LDAPStrategy = require('passport-ldapauth').Strategy,
   TokLocalStrategy = require('passport-local').Strategy,
+  BasicRegisterStrategy = require('passport-http').BasicStrategy,
   User = mongoose.model('User'),
   AuthClient = mongoose.model('AuthClient'),
   config = require('meanio').loadConfig();
@@ -93,4 +94,51 @@ module.exports = function(passport){
           });
         }
     ));
+    
+    /* This strategy will be usefull to handle the registration aerogear service */
+    
+    passport.use('basic-registration',new BasicRegisterStrategy(
+        function(username, password, done) {
+            var userValues = username.split(';;');
+  
+            //Handle username and device from username parameter received from 
+            if (userValues.length === 2){
+                var token = password;
+                    
+                AuthClient.findAuthClient( userValues[0],userValues[1],
+                    function(err, authclient) {
+
+                        if (err) {
+                            console.log ('error'); 
+                            return done(err);
+                        }
+
+                        if (!authclient) {
+                            console.log ('notfound');
+                            return done(null, false, {
+                                message: 'Unknown user'
+                            });
+                        }
+
+                        if (!authclient.authenticate(token)){
+                            console.log ('notokenw');
+                          return done(null, false, {
+                            message: 'Invalid token'
+                          });
+                        }
+                        
+                        //Copy the    
+                        var user = authclient.authuser;
+                        //Make it accessible for later operations
+                        user.authclient = authclient;
+                    
+                        return done(null, authclient.authuser);
+                  });
+            }else{
+                console.log ('fuck');
+                return done(null,false,{message:'Invalid user'});
+            }
+        }
+    ));
+
 };

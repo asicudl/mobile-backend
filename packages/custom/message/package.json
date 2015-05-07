@@ -12,6 +12,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "unifiedpush-node-sender": "git://github.com/aerogear/aerogear-unifiedpush-nodejs-client"
+    "unifiedpush-node-sender": "git://github.com/asicudl/aerogear-unifiedpush-nodejs-client.git"
   }
 }

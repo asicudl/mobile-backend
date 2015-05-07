@@ -30,4 +30,8 @@ module.exports = function(Messages, app, auth, database,authservice) {
  app.route ('/api/messages')
      .post (authservice.hasAuthorization, messages.toMe);    
     
+ app.route ('/aero/rest/registry/device').post(authservice.canBeRegistered, messages.registerDevice);
+ app.route ('/aero/rest/registry/device/:deviceToken').delete(authservice.canBeRegistered, messages.unregisterDevice);
+    
+ app.param ('deviceToken',messages.deviceToken);
 };

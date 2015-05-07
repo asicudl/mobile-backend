@@ -194,7 +194,7 @@ module.exports = function(passport) {
     }
   ));
     
-   passport.use(new BasicStrategy(
+   passport.use('basic-sender',new BasicStrategy(
     function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }

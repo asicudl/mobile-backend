@@ -8,8 +8,7 @@ var mongoose = require('mongoose'),
   _ = require('lodash'),
   agSender = require('unifiedpush-node-sender'),
   settings = require('./msg-settings.json');
-
-
+    
 var options = {
     config: {
         ttl: 3600,
@@ -48,6 +47,15 @@ exports.message = function(req, res, next, id) {
 };
 
 /**
+ * Find message by id
+ */
+exports.deviceToken = function(req, res, next, id) {
+    req.deviceToken = id;
+    next();
+};
+
+
+/**
  * Create an message
  */
 exports.create = function(req, res) {
@@ -69,14 +77,6 @@ exports.create = function(req, res) {
         badge: 2,
         simplePush: 'version=123',
         contentAvailable: true,
-        'udl-noti-subject': message.subject,
-        'udl-noti-site': message.siteId,
-        'udl-noti-sitename': message.siteTitle,
-        'udl-noti-body': message.content,
-        'udl-noti-category':'cv',
-        'udl-noti-url': message.notiURL,
-        'udl-noti-state': 'read'
-     
     };  
       
     agSender.Sender( settings ).send( sendMessage, options )
@@ -170,5 +170,27 @@ exports.toMe = function(req, res) {
     }
     res.json({'messages':messages,'currentDate': new Date()});
   });
+};
+
+exports.registerDevice = function (req,res){
+    agSender.Register( settings             ).register(req.user.username,req.body.deviceToken,req.body.deviceType,req.body.operatingSystem,req.body.osVersion,[])
+    .on( 'success', function( response) {
+        res.status(200).send(response); 
+    })
+    .on( 'error', function( err ) {
+        res.status(500).send({'err':err}); 
+    });      
+};
+
+exports.unregisterDevice = function (req,res){
+    console.log ('unregister ' + req.deviceToken);
+    
+    agSender.Register( settings ).unregister(req.deviceToken)
+    .on( 'success', function( response) {
+        res.status(200).send(response); 
+    })
+    .on( 'error', function( err ) {
+        res.status(500).send({'err':err}); 
+    });     
 };
 

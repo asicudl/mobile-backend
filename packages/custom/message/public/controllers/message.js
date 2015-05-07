@@ -19,6 +19,7 @@ angular.module('mean.message').controller('MessagesController', ['$scope', '$sta
           siteId: this.siteId,
           siteTitle: this.siteTitle,
           notiURL: this.notiURL,
+          author: this.author,
           content: this.content
         });
         message.$save(function(response) {
@@ -30,6 +31,7 @@ angular.module('mean.message').controller('MessagesController', ['$scope', '$sta
         this.siteId = '';
         this.siteTitle = '';
         this.notiURL = '';
+        this.author = '';
         this.tempReceptients = [];
       } else {
         $scope.submitted = true;
