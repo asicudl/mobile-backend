@@ -7,16 +7,11 @@ var mongoose = require('mongoose'),
   Message = mongoose.model('Message'),
   _ = require('lodash'),
   agSender = require('unifiedpush-node-sender'),
-  settings = require('./msg-settings.json');
+  settings = require('./msg-settings.json'),
+  util = require ('util');
     
 var options = {
-    config: {
-        ttl: 3600,
-    }/*
-    criteria: {
-        variants: [ "1234", "56788" ],
-        categories: [ "category1", "category2" ]
-    }*/
+    ttl: 3600,
 };
 
 var asFarLastWeek = function (curdate){
@@ -78,6 +73,8 @@ exports.create = function(req, res) {
         simplePush: 'version=123',
         contentAvailable: true,
     };  
+
+    options.categories = message.receptientsIds;
       
     agSender.Sender( settings ).send( sendMessage, options )
     .on( 'success', function( response ) {
@@ -172,10 +169,19 @@ exports.toMe = function(req, res) {
   });
 };
 
+
+//Those methods should be on other module
 exports.registerDevice = function (req,res){
-    agSender.Register( settings             ).register(req.user.username,req.body.deviceToken,req.body.deviceType,req.body.operatingSystem,req.body.osVersion,[])
+    
+    var categories = [];
+   
+    if (req.body.alias !== 'unregister'){
+        categories.push(req.user.username);
+    }
+    
+    agSender.Register( settings             ).register(req.user.username,req.body.deviceToken,req.body.deviceType,req.body.operatingSystem,req.body.osVersion,categories)
     .on( 'success', function( response) {
-        res.status(200).send(response); 
+        res.status(200).json(JSON.parse(response)); 
     })
     .on( 'error', function( err ) {
         res.status(500).send({'err':err}); 
@@ -183,8 +189,6 @@ exports.registerDevice = function (req,res){
 };
 
 exports.unregisterDevice = function (req,res){
-    console.log ('unregister ' + req.deviceToken);
-    
     agSender.Register( settings ).unregister(req.deviceToken)
     .on( 'success', function( response) {
         res.status(200).send(response); 
