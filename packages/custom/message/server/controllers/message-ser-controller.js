@@ -7,8 +7,7 @@ var mongoose = require('mongoose'),
   Message = mongoose.model('Message'),
   _ = require('lodash'),
   agSender = require('unifiedpush-node-sender'),
-  settings = require('./msg-settings.json'),
-  util = require ('util');
+  settings = require('./msg-settings.json');
     
 var options = {
     ttl: 3600,
