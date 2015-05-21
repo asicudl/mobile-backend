@@ -153,7 +153,6 @@ exports.all = function(req, res) {
 exports.toMe = function(req, res) {
   //Get the last messages from date or the last week    
   var ob = asFarLastWeek(req.body.lastMessageDate);
-  console.log ('er ' + ob);
 
   var searchCriteria =  {'receptientsIds' : req.user.username,'created' : {'$gt': asFarLastWeek(req.body.lastMessageDate)}};
     
