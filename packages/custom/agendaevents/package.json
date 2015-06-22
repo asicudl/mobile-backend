@@ -1,0 +1,14 @@
+{
+  "name": "agendaevents",
+  "version": "0.0.1",
+  "description": "Manages the list of events of the institution",
+  "author": {
+    "name": "alexandre.balleste@udl.cat"
+  },
+  "mean": "0.4.3",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.4.x"
+  },
+  "license": "MIT"
+}

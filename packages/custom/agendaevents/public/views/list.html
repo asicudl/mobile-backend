@@ -1,0 +1,22 @@
+<section data-ng-controller="AgendaEventsController" data-ng-init="find()">
+  <ul class="agendaEvents unstyled">
+    <li data-ng-repeat="agendaEvent in agendaEvents">
+      
+        <a data-ng-href="#!/agendaevents/{{agendaEvent._id}}">{{agendaEvent.title}}</a>
+        <span data-ng-if="hasAuthorization(agendaEvent)">
+          <a class="btn" href="/#!/agendaevents/{{agendaEvent._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+          </a>
+          <a class="btn" data-ng-click="remove(agendaEvent);">
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
+        </span>
+        <p>
+            <span>Created: {{agendaEvent.created | date:'medium'}}</span><br />
+            <span>Updated: {{agendaEvent.lastUpdate | date:'medium'}}</span>
+        </p> 
+    </li>
+  </ul>
+  <h1 data-ng-hide="!agendaEvents || agendaEvents.length">No agenda items yet. <br> Why don't you <a href="/#!/agendaevents/create">Create One</a>?</h1>
+</section>
+

@@ -1,0 +1,15 @@
+.message-example h1 {
+  background-color: purple
+}
+
+.rcplist{
+  min-height: 20px;   
+}
+.rcplist li{
+    list-style: none;
+}
+
+.agendaEvent_img{
+    max-width: 300px;
+    height: auto;
+}
