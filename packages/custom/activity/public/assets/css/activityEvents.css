@@ -1,0 +1,31 @@
+.message-example h1 {
+  background-color: purple
+}
+
+.rcplist{
+  min-height: 20px;   
+}
+.rcplist li{
+    list-style: none;
+}
+
+.activityEvents .title{
+    font-size: 1.3em;
+}
+
+.activityEvents .dateInformation{
+    font-size: 0.9em;
+}
+
+
+.activityEvent_img{
+    max-width: 150px;
+    height: auto;
+}
+
+.activityEvents li{
+    width:100%;
+    display: table;
+    border-bottom: 1px solid #ccc;
+    padding : 10px;
+}

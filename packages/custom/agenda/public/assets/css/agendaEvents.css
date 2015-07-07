@@ -1,0 +1,33 @@
+.message-example h1 {
+  background-color: purple
+}
+
+.rcplist{
+  min-height: 20px;   
+}
+.rcplist li{
+    list-style: none;
+}
+
+.agendaEvents .title{
+    font-size: 1.3em;
+}
+
+.agendaEvents .dateInformation{
+    font-size: 0.9em;
+}
+
+
+.agendaEvent_img{
+    max-width: 150px;
+    height: auto;
+}
+
+.agendaEvents li{
+    width:100%;
+    display: table;
+    border-bottom: 1px solid #ccc;
+    padding : 10px;
+}
+
+

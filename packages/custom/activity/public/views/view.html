@@ -1,0 +1,74 @@
+<section data-ng-controller="ActivityEventsController" data-ng-init="findOne()">
+    
+
+    <h2>{{activityEvent.title}}</h2>
+
+    
+    <div data-ng-if="hasAuthorization(activityEvent)">
+        <a class="btn" href="#!/activityevents/{{activityEvent._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove(activityEvent);">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    
+    <div  class="form-horizontal col-md-6" >
+        <div class="form-group" >
+            <label class="col-md-3 control-label">Title</label>
+            <div class="col-md-9">
+                {{activityEvent.title}}
+            </div>
+        </div>
+        
+        <div class="form-group" >
+            <label class="col-md-3 control-label">Image:</label>
+            <div class="col-md-9">
+                <img class="activityEvent_img" src="{{activityEvent.image}}" />
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <label class="col-md-3 control-label">Period</label>
+            <div class="col-md-9">
+                {{activityEvent.period}}
+            </div>
+        </div>  
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Location</label>
+            <div class="col-md-9">
+                {{activityEvent.location}}
+            </div>
+        </div>  
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Published</label>
+            <div class="col-md-9">
+                {{activityEvent.published}}
+            </div>
+        </div>  
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Event URL</label>
+            <div>
+                {{activityEvent.eventURL}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Content</label>
+            <div ta-bind  name="content" data-ng-model="activityEvent.content" id="content" class="col-md-9" required>               </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Created:</label> <div class="col-md-9">{{activityEvent.created | date:'medium'}}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Last Modified: </label> <div class="col-md-9">{{activityEvent.lastUpdate | date:'medium'}}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">By:</label> <div class="col-md-9">{{activityEvent.user.name}}</div>
+        </div>
+
+</section>

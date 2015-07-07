@@ -1,0 +1,29 @@
+<section data-ng-controller="ActivityEventsController" data-ng-init="find()">
+  <ul class="activityEvents unstyled">
+    <li data-ng-repeat="activityEvent in activityEvents">
+            <div class="col-md-3">
+                <img class="activityEvent_img" ng-show="{{activityEvent.image !== ''}}" src="{{activityEvent.image}}" />
+            </div>    
+            <div class="col-md-5">
+                <a data-ng-href="#!/activityevents/{{activityEvent._id}}" class="title">{{activityEvent.title}}</a>
+                <span data-ng-if="hasAuthorization(activityEvent)">
+                  <a class="btn" href="/#!/activityevents/{{activityEvent._id}}/edit">
+                    <i class="glyphicon glyphicon-edit"></i>
+                  </a>
+                  <a class="btn" data-ng-click="remove(activityEvent);">
+                    <i class="glyphicon glyphicon-trash"></i>
+                  </a>
+                </span>
+                <div class="dateInformation">
+                    <p><span>Created: {{activityEvent.created | date:'medium'}}</span></p>
+                    <p><span>Updated: {{activityEvent.lastUpdate | date:'medium'}}</span></p>
+                </div>
+                <p><i ng-show="activityEvent.published" title="Published" class="glyphicon glyphicon-eye-open" ></i> <i ng-hide="activityEvent.published" class="glyphicon glyphicon-eye-close" title="Unpublished"></i></p>
+                
+            </div>
+            
+    </li>
+  </ul>
+  <h3 data-ng-hide="!activityEvents || activityEvents.length">No activity items yet. <br> Why don't you <a href="/#!/activityevents/create">Create One</a>?</h3>
+</section>
+

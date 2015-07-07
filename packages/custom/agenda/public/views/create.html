@@ -1,0 +1,46 @@
+<section data-ng-controller="AgendaEventsController">
+    <form name="agendaEventsForm" class="form-horizontal col-md-10" role="form" data-ng-submit="create(agendaEventsForm.$valid)" novalidate>
+
+        <div class="form-group" ng-class="{'has-error' : submitted && agendaEventsForm.title.$invalid}">
+            <label mean-token="'create-title'" class="col-md-3 control-label">Title</label>
+            <div class="col-md-9">
+                <input name="title" type="text" class="form-control" data-ng-model="title" id="title" placeholder="Event title" required>
+                <div ng-show="submitted && agendaEventsForm.title.$invalid" class="help-block">
+                    <p ng-show="agendaEventsForm.title.$error.required">Title is required</p>
+                </div>
+            </div>
+        </div>  
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Event date:</label>
+            <div class="col-md-9">
+                <datetimepicker starting-day="1" min-date="minDate" show-weeks="true" hour-step="1" minute-step="15" data-ng-model="eventDate" show-meridian="false" date-format="dd-MMM-yyyy" date-options="" date-disabled="false" readonly-time="false"></datetimepicker>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Location</label>
+            <div class="col-md-9">
+                <input name="location" type="text" class="form-control" data-ng-model="location" id="location" placeholder="Location" >
+            </div>
+
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : submitted && agendaEventsForm.content.$invalid }">
+            <label mean-token="'create-content'" for="content" class="col-md-3 control-label">Content</label>
+            
+            <div class="col-md-9">
+                <text-angular name="content" data-ng-model="content" id="content"  required></text-angular>
+                <div ng-show="submitted && agendaEventsForm.content.$invalid" class="help-block">
+                    <p ng-show="agendaEventsForm.content.$error.required">Content is required</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <button mean-token="'create-submit'" type="submit" class="btn btn-info">Submit</button>
+            </div>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,76 @@
+<section data-ng-controller="ActivityEventsController">
+    <form name="activityEventsForm" class="form-horizontal col-md-10" role="form" data-ng-submit="create(activityEventsForm.$valid)" novalidate>
+
+        <div class="form-group" ng-class="{'has-error' : submitted && activityEventsForm.title.$invalid}">
+            <label mean-token="'create-title'" class="col-md-3 control-label">Title</label>
+            <div class="col-md-9">
+                <input name="title" type="text" class="form-control" data-ng-model="title" id="title" placeholder="Event title" required>
+                <div ng-show="submitted && activityEventsForm.title.$invalid" class="help-block">
+                    <p ng-show="activityEventsForm.title.$error.required">Title is required</p>
+                </div>
+            </div>
+        </div>  
+
+        <div class="form-group">
+            <label for="inputImage" class="col-md-3 control-label">Upload an image<br/> (150x100)</label>
+            <div class="col-md-9">
+                <img id="img" class="activityEvent_img" src="{{loadedimg}}" />
+                <div ng-show="submitted && activityEventsForm.image.$invalid" class="help-block">
+                    <p ng-show="activityEventsForm.title.$error.badwidth">Incorrect width or height is required</p>
+                </div>
+                <input id="inputImage"
+                   type="file"
+                   accept="image/*"
+                   onchange="angular.element(this).scope().changeFile()"
+                   ng-model="myfileimage"
+                   />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Period</label>
+            <div class="col-md-9">
+                <input name="period" type="text" class="form-control" data-ng-model="period" id="period" placeholder="Event Period" required>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Location</label>
+            <div class="col-md-9">
+                <input name="location" type="text" class="form-control" data-ng-model="location" id="location" placeholder="Location" >
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Published</label>
+            <div class="col-md-1">
+                <input name="published" type="checkbox" class="form-control" data-ng-model="published" id="published" placeholder="published" checked="true" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Event URL</label>
+            <div class="col-md-9">
+                <input name="eventURL" type="text" class="form-control" data-ng-model="eventURL" id="eventURL" placeholder="The Event URL" >
+            </div>
+        </div>   
+
+
+        <div class="form-group" ng-class="{ 'has-error' : submitted && activityEventsForm.content.$invalid }">
+            <label mean-token="'create-content'" for="content" class="col-md-3 control-label">Content</label>
+            <div class="col-md-9">
+                <text-angular name="content" data-ng-model="content" id="content" required></text-angular>
+                <div ng-show="submitted && activityEventsForm.content.$invalid" class="help-block">
+                    <p ng-show="activityEventsForm.content.$error.required">Content is required</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <button mean-token="'create-submit'" type="submit" class="btn btn-info">Submit</button>
+            </div>
+        </div>
+    </form>
+</section>

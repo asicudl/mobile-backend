@@ -1,5 +1,5 @@
 <section data-ng-controller="MessagesController">
-  <form name="messageForm" class="form-horizontal col-md-6" role="form" data-ng-submit="create(messageForm.$valid)" novalidate>
+  <form name="messageForm" class="form-horizontal col-md-10" role="form" data-ng-submit="create(messageForm.$valid)" novalidate>
     
     <div class="form-group" ng-class="{ 'has-error' : submitted && messageForm.subject.$invalid }">
       <label mean-token="'create-subject'" class="col-md-3 control-label">Subject</label>
@@ -43,7 +43,7 @@
       
         <label class="col-md-3 control-label">Receipents</label>
         
-        <ul class="col-md-9 rcplist">
+        <ul ng-show="tempReceptients.length >0" class="col-md-9 rcplist">
           <li ng-repeat="rcp in tempReceptients" >{{rcp}}
             <a class="btn" data-ng-click="tempReceptients.splice($index,1)">
                 <i class="glyphicon glyphicon-remove"></i>
@@ -51,7 +51,7 @@
           </li>
        </ul> 
        
-        <label class="col-md-3 control-label"><span ng-hide="true">Receptients List</span></label>
+        <label ng-show="tempReceptients.length > 0"  class="col-md-3 control-label"><span ng-hide="true">Receptients List</span></label>
         
         <div class="col-md-4">
             <input name="newrcp" type="text" class="form-control" data-ng-model="newrcp" id="newrcp" placeholder="Receptient id" >
@@ -71,7 +71,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && messageForm.content.$invalid }">
       <label mean-token="'create-content'" for="content" class="col-md-3 control-label">Content</label>
       <div class="col-md-9">
-        <textarea name="content" data-ng-model="content" id="content" cols="30" rows="10" placeholder="Content" class="form-control" required></textarea>
+          <text-angular name="content" data-ng-model="content" id="content"  required></text-angular>
         <div ng-show="submitted && messageForm.content.$invalid" class="help-block">
           <p ng-show="messageForm.content.$error.required">Content is required</p>
         </div>

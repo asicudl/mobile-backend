@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "users": "latest",
+    "authservice": "0.0.1",
+    "utils": "0.0.1"
+  }
+}

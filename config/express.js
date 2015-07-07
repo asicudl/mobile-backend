@@ -11,7 +11,8 @@ var mean = require('meanio'),
   express = require('express'),
   helpers = require('view-helpers'),
   flash = require('connect-flash'),
-  config = mean.loadConfig();
+  config = mean.loadConfig(),
+  bodyParser = require('body-parser');
 
 module.exports = function(app, db) {
 
@@ -33,7 +34,11 @@ module.exports = function(app, db) {
 
   // Enable compression on bower_components
   app.use('/bower_components', express.static(config.root + '/bower_components'));
-
+  
+  //Extend limit on json to process images
+    app.use(bodyParser.urlencoded({limit: '50mb',extended:true}));
+    app.use(bodyParser.json({limit: '50mb'}));  
+    
   // Adds logging based on logging config in config/env/ entry
   require('./middlewares/logging')(app, config.logging);
 
