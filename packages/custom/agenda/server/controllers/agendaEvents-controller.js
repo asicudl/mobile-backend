@@ -90,7 +90,7 @@ exports.show = function(req, res) {
  * List of agenda events
  */
 exports.all = function(req, res) {
-    AgendaEvents.find().sort('-created').populate('user', 'name username').exec(function(err, agendaEvents) {
+    AgendaEvents.find().sort('eventDate').populate('user', 'name username').exec(function(err, agendaEvents) {
         if (err) {
             return res.status(500).json({
                 error: 'Cannot list the agenda events'
@@ -115,7 +115,7 @@ exports.allNewEvents = function(req, res) {
     }
 
 
-    AgendaEvents.find(searchCriteria).exec(function(err, agendaEvents) {
+    AgendaEvents.find(searchCriteria).sort('eventDate').exec(function(err, agendaEvents) {
         if (err) {
             console.log('error ' + err);
             return res.status(500).json({

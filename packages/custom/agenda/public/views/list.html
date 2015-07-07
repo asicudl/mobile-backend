@@ -1,10 +1,8 @@
 <section data-ng-controller="AgendaEventsController" data-ng-init="find()">
   <ul class="agendaEvents unstyled">
     <li data-ng-repeat="agendaEvent in agendaEvents">
-            <div class="col-md-3">
-                <img class="agendaEvent_img" ng-show="{{agendaEvent.image !== ''}}" src="{{agendaEvent.image}}" />
-            </div>    
-            <div class="col-md-5">
+            
+            <div class="col-md-10">
                 <a data-ng-href="#!/agendaevents/{{agendaEvent._id}}" class="title">{{agendaEvent.title}}</a>
                 <span data-ng-if="hasAuthorization(agendaEvent)">
                   <a class="btn" href="/#!/agendaevents/{{agendaEvent._id}}/edit">
@@ -15,8 +13,9 @@
                   </a>
                 </span>
                 <div class="dateInformation">
-                    <p><span>Created: {{agendaEvent.created | date:'medium'}}</span></p>
-                    <p><span>Updated: {{agendaEvent.lastUpdate | date:'medium'}}</span></p>
+                    <p><span>Event Date: {{agendaEvent.eventDate | date:'medium'}}</span></p>
+                    <p><span>Created/Updated: {{agendaEvent.created | date:'medium'}} /  {{agendaEvent.lastUpdate | date:'medium'}}</span></p>
+               
                 </div>
                 <p><i ng-show="agendaEvent.published" title="Published" class="glyphicon glyphicon-eye-open" ></i> <i ng-hide="agendaEvent.published" class="glyphicon glyphicon-eye-close" title="Unpublished"></i></p>
                 

@@ -19,6 +19,14 @@ var ActivityEventsSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    startDate: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    dueDate: {
+        type: Date
+    },
     title: {
         type: String,
         required: true,
@@ -69,6 +77,10 @@ ActivityEventsSchema.path('title').validate(function(title) {
 ActivityEventsSchema.path('content').validate(function(content) {
     return !!content;
 }, 'Content cannot be blank');
+
+ActivityEventsSchema.path('dueDate').validate(function(dueDate) {
+    return !!dueDate;
+}, 'Due date must be set');
 
 ActivityEventsSchema.path('period').validate(function(period) {
     return !!period;

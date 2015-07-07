@@ -90,7 +90,7 @@ exports.show = function(req, res) {
  * List of activity events
  */
 exports.all = function(req, res) {
-    ActivityEvents.find().sort('-created').populate('user', 'name username').exec(function(err, activityEvents) {
+    ActivityEvents.find().sort('dueDate').populate('user', 'name username').exec(function(err, activityEvents) {
         if (err) {
             return res.status(500).json({
                 error: 'Cannot list the activity events'
@@ -115,7 +115,7 @@ exports.allNewEvents = function(req, res) {
     }
 
 
-    ActivityEvents.find(searchCriteria).exec(function(err, activityEvents) {
+    ActivityEvents.find(searchCriteria).sort ('dueDate')   .exec(function(err, activityEvents) {
         if (err) {
             console.log('error ' + err);
             return res.status(500).json({

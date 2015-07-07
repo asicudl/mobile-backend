@@ -15,8 +15,8 @@
                   </a>
                 </span>
                 <div class="dateInformation">
-                    <p><span>Created: {{activityEvent.created | date:'medium'}}</span></p>
-                    <p><span>Updated: {{activityEvent.lastUpdate | date:'medium'}}</span></p>
+                    <p><span>Due Date: {{activityEvent.dueDate | date:'medium'}}</span></p>
+                    <p><span>Created / Updated: {{activityEvent.created | date:'medium'}} / {{activityEvent.lastUpdate | date:'medium'}}</span></p>
                 </div>
                 <p><i ng-show="activityEvent.published" title="Published" class="glyphicon glyphicon-eye-open" ></i> <i ng-hide="activityEvent.published" class="glyphicon glyphicon-eye-close" title="Unpublished"></i></p>
                 

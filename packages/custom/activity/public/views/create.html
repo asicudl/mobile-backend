@@ -32,7 +32,13 @@
             <div class="col-md-9">
                 <input name="period" type="text" class="form-control" data-ng-model="period" id="period" placeholder="Event Period" required>
             </div>
-
+        </div>
+ 
+        <div class="form-group">
+            <label class="col-md-3 control-label">Due date:</label>
+            <div class="col-md-9">
+                <datetimepicker starting-day="1" show-weeks="true" hour-step="1" minute-step="15" data-ng-model="dueDate" show-meridian="false" date-format="dd-MMM-yyyy" date-options="" date-disabled="false" readonly-time="false"></datetimepicker>
+            </div>
         </div>
 
         <div class="form-group">

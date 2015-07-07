@@ -16,6 +16,14 @@
                 <input name="period" type="text" class="form-control" data-ng-model="activityEvent.period" id="period" placeholder="Period" required>
             </div>
         </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Due date:</label>
+            <div class="col-md-9">
+                <datetimepicker starting-day="1" show-weeks="true" hour-step="1" minute-step="15" data-ng-model="activityEvent.dueDate" show-meridian="false" date-format="dd-MMM-yyyy" date-options="" date-disabled="false" readonly-time="false"></datetimepicker>
+            </div>
+        </div>
+        
         <div class="form-group">
             <label for="inputImage" class="col-md-3 control-label">Image<br/> (150x100)</label>
             <div class="col-md-9">

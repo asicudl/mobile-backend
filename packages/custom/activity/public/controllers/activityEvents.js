@@ -10,7 +10,8 @@ angular.module('mean.activity')
                  function($scope, $stateParams, $location, Global, ActivityEvents,$sce) {
                      $scope.global = Global;
                      $scope.tempReceptients = [];
-
+                     $scope.dueDate = new Date ();
+                     
                      $scope.trustSrc = function(src) {
                          return $sce.trustAsResourceUrl(src);
                      };
@@ -29,6 +30,7 @@ angular.module('mean.activity')
                                  eventURL: this.eventURL,
                                  location: this.location,
                                  period: this.period,
+                                 dueDate: this.dueDate,
                                  content: this.content,
                                  image: this.loadedimg
                              });
@@ -42,6 +44,7 @@ angular.module('mean.activity')
                              this.eventURL = '';
                              this.published = false;
                              this.period = '';
+                             this.dueDate = new Date ();
                              this.location = '';
                              this.image = '';
                          } else {
