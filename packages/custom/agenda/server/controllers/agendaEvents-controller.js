@@ -7,6 +7,20 @@ var mongoose = require('mongoose'),
     AgendaEvents = mongoose.model('AgendaEvents'),
     _ = require('lodash');
 
+var asFarLastWeek = function (curdate){
+    var today = new Date();
+    var dateReturn = new Date ();
+    dateReturn.setDate(today.getDate() - 7);
+
+    try{
+        var currentDate = new Date(curdate);	
+        dateReturn = (currentDate < dateReturn) ? dateReturn : currentDate;
+    }catch (error){
+        console.log ('error transforming date' + error); 
+    }
+
+    return dateReturn;
+};
 
 /**
  * Find agenda event by id
@@ -22,7 +36,7 @@ exports.agendaEvent = function(req, res, next, id) {
 
 
 /**
- * Create an agenda evetn
+ * Create an agenda evetn 
  */
 exports.create = function(req, res) {
 
@@ -66,8 +80,11 @@ exports.update = function(req, res) {
  */
 exports.destroy = function(req, res) {
     var agendaEvent = req.agendaEvent;
-
-    agendaEvent.remove(function(err) {
+    
+    agendaEvent.state = 'deleted';
+    agendaEvent.lastUpdate = new Date();
+        
+    agendaEvent.save(function(err) {
         if (err) {
             return res.status(500).json({
                 error: 'Cannot delete the agendaEvent'
@@ -75,7 +92,6 @@ exports.destroy = function(req, res) {
         }
 
         res.json(agendaEvent);
-
     });
 };
 
@@ -90,14 +106,14 @@ exports.show = function(req, res) {
  * List of agenda events
  */
 exports.all = function(req, res) {
-    AgendaEvents.find().sort('eventDate').populate('user', 'name username').exec(function(err, agendaEvents) {
+    AgendaEvents.find({'state': 'active'}).sort('eventDate').populate('user', 'name username').exec(function(err, agendaItems) {
         if (err) {
             return res.status(500).json({
                 error: 'Cannot list the agenda events'
             });
         }
 
-        res.json(agendaEvents);
+        res.json(agendaItems);
     });
 };
 
@@ -106,23 +122,17 @@ exports.all = function(req, res) {
  * Public API List of AgendaEvents
  */
 exports.allNewEvents = function(req, res) {
-    var searchCriteria ={};
+    var searchCriteria =  {'lastUpdate' : {'$gt': asFarLastWeek(req.body.lastAgendaDate)}};
 
-    if (req.body.lastMessage){
-        searchCriteria =  {'lastUpdate' : {'$gt': req.body.lastMessageDate}};
-    }else{
-        searchCriteria = {'published': true};
-    }
-
-
-    AgendaEvents.find(searchCriteria).sort('eventDate').exec(function(err, agendaEvents) {
+    AgendaEvents.find(searchCriteria).sort('eventDate').exec(function(err, agendaItems) {
         if (err) {
             console.log('error ' + err);
             return res.status(500).json({
                 error: 'Cannot list the agenda events'
             });
         }
-        res.json({'agendaEvents':agendaEvents,'currentDate': new Date()});
+        console.log ('el currentDate' + new Date());
+        res.json({'agendaItems':agendaItems, 'currentDate': new Date()});
     });
 };
 

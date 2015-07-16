@@ -67,16 +67,19 @@ exports.update = function(req, res) {
 exports.destroy = function(req, res) {
     var activityEvent = req.activityEvent;
 
-    activityEvent.remove(function(err) {
+    activityEvent.status = 'deleted';
+    activityEvent.lastUpdate = new Date();
+
+    activityEvent.save(function(err) {
         if (err) {
             return res.status(500).json({
-                error: 'Cannot delete the activity event'
+                error: 'Cannot update the activity event'
             });
         }
 
         res.json(activityEvent);
-
     });
+
 };
 
 /**
@@ -90,7 +93,7 @@ exports.show = function(req, res) {
  * List of activity events
  */
 exports.all = function(req, res) {
-    ActivityEvents.find().sort('dueDate').populate('user', 'name username').exec(function(err, activityEvents) {
+    ActivityEvents.find({'state': 'active'}).sort('dueDate').populate('user', 'name username').exec(function(err, activityEvents) {
         if (err) {
             return res.status(500).json({
                 error: 'Cannot list the activity events'
@@ -109,20 +112,20 @@ exports.allNewEvents = function(req, res) {
     var searchCriteria ={};
 
     if (req.body.lastMessage){
-        searchCriteria =  {'lastUpdate' : {'$gt': req.body.lastMessageDate}};
+        searchCriteria =  {'state': 'active'};
     }else{
-        searchCriteria = {'published': true};
+        searchCriteria = {'state': 'active','published': true};
     }
 
 
-    ActivityEvents.find(searchCriteria).sort ('dueDate')   .exec(function(err, activityEvents) {
+    ActivityEvents.find(searchCriteria).sort ('dueDate') .exec(function(err, activityEvents) {
         if (err) {
             console.log('error ' + err);
             return res.status(500).json({
                 error: 'Cannot list the activity events'
             });
         }
-        res.json({'activityEvents' : activityEvents, 'currentDate' : new Date()});
+        res.json({'activityItems' : activityEvents, 'currentDate' : new Date()});
     });
 };
 

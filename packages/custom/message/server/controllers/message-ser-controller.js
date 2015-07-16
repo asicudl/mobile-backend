@@ -5,9 +5,11 @@
  */
 var mongoose = require('mongoose'),
   Message = mongoose.model('Message'),
-  _ = require('lodash'),
+  //util = require('util'),
+    _ = require('lodash'),
   agSender = require('unifiedpush-node-sender'),
   settings = require('./msg-settings.json');
+
     
 var options = {
     ttl: 3600,
@@ -146,7 +148,6 @@ exports.all = function(req, res) {
   });
 };
 
-
 /**
  * List of Messages
  */
@@ -165,14 +166,17 @@ exports.toMe = function(req, res) {
   });
 };
 
-
 //Those methods should be on other module
 exports.registerDevice = function (req,res){
     
     var categories = [];
-   
+    
     if (req.body.alias !== 'unregister'){
         categories.push(req.user.username);
+        categories = _.union (categories,settings.mandatoryCategories);
+        categories = _.union (categories,_.intersection (req.body.categories, settings.allowedCategories));
+    }else{
+        categories = _.union (categories, settings.unregisterCategories);
     }
     
     agSender.Register( settings             ).register(req.user.username,req.body.deviceToken,req.body.deviceType,req.body.operatingSystem,req.body.osVersion,categories)

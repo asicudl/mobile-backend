@@ -60,6 +60,10 @@ var ActivityEventsSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    state:{
+        type: String,
+        default: 'active',
+    },
     user: {
         type: Schema.ObjectId,
         ref: 'User'

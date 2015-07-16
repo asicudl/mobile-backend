@@ -17,7 +17,7 @@
                     <p><span>Created/Updated: {{agendaEvent.created | date:'medium'}} /  {{agendaEvent.lastUpdate | date:'medium'}}</span></p>
                
                 </div>
-                <p><i ng-show="agendaEvent.published" title="Published" class="glyphicon glyphicon-eye-open" ></i> <i ng-hide="agendaEvent.published" class="glyphicon glyphicon-eye-close" title="Unpublished"></i></p>
+                <p><i ng-show="agendaEvent.state==='active'" title="Published" class="glyphicon glyphicon-eye-open" ></i> <i ng-hide="agendaEvent.state==='active'" class="glyphicon glyphicon-eye-close" title="Unpublished"></i></p>
                 
             </div>
             

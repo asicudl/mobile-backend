@@ -28,7 +28,7 @@ module.exports = function (ActivityEvents, app, auth, database, authservice) {
 
 
     //Define  the mobile api agendaEvents
-    app.route ('/api/activityevents')
+    app.route ('/public/activityevents')
         .post (activityEventsCtrl.allNewEvents);    
 
 };

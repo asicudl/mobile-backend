@@ -3,6 +3,7 @@
 //Utils module definition. Used to define whatever util service used on whole backend
 var utilapp = angular.module('mean.utils',['ui.bootstrap.datetimepicker','textAngular']);
 
+
 utilapp.config(['$provide', function($provide){
     $provide.decorator('taTools', ['$delegate', function(taTools){
         taTools.bold.iconclass = 'glyphicon glyphicon-bold';

@@ -19,12 +19,17 @@ var AgendaEventsSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    state: {
+        type: String,
+        default: 'active',
+        trim: true
+    },
     title: {
         type: String,
         required: true,
         trim: true
     },
-    eventDate:{
+    eventDate: {
         type: Date,
         defaut: Date.now
     },
