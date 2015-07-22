@@ -153,7 +153,9 @@ exports.all = function(req, res) {
  */
 exports.toMe = function(req, res) {
   
-  var searchCriteria =  {'receptientsIds' : req.user.username,'created' : {'$gt': asFarLastWeek(req.body.lastMessageDate)}};
+    var receptientsIds =  _.union (settings.mandatoryCategories,[req.user.username]);
+    console.log (receptientsIds);
+var searchCriteria =  {'receptientsIds' : {'$in': receptientsIds},'created' : {'$gt': asFarLastWeek(req.body.lastMessageDate)}};
     
   Message.find(searchCriteria).sort('-created').populate('user', 'name username').exec(function(err, messages) {
     if (err) {
