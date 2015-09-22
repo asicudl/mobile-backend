@@ -74,19 +74,25 @@ module.exports = function(passport){
 
           //We use the custon search to get the populated user. //We must user performance test
           AuthClient.findAuthClient(username,device,
+                                    
             function(err, authclient) {
+
               if (err) {
+                  console.log ('Error on auth:' +err );
                   return done(err);
               }
 
               if (!authclient) {
+                  console.log ('No auth client:' +err );
+                  
                   return done(null, false, {
                       message: 'Unknown user'
                   });
               }
 
             if (!authclient.authenticate(token)) {
-              return done(null, false, {
+                console.log ('Invalid token:' + token );
+                return done(null, false, {
                 message: 'Invalid token'
               });
             }

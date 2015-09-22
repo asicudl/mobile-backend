@@ -7,6 +7,7 @@ var mongoose  = require('mongoose'),
     Schema    = mongoose.Schema,
     crypto    = require('crypto'),
           _   = require('lodash');
+    //now         =require ('performance-now');
 
 var escapeProperty = function(value) {
   return _.escape(value);
@@ -84,7 +85,8 @@ AuthClientSchema.methods = {
   hashToken: function(token) {
     if (!token || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
-    return crypto.pbkdf2Sync(token, salt, 10000, 64).toString('base64');
+    var crypt = crypto.pbkdf2Sync(token, salt, 10000, 64).toString('base64');
+    return crypt;
   },   
   
 
@@ -105,9 +107,10 @@ AuthClientSchema.statics.findAuthClient = function (username,device,callback){
     this.findOne({
         username: username,
         device: device
-      }).populate ('authuser').exec(function (err,authclient){
-            callback(err,authclient);  
-      });
+    }).populate('authuser').exec(function (err,authclient){
+        callback(err,authclient);  
+    });
+ 
 };
 
 

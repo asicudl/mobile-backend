@@ -1,0 +1,20 @@
+.serviceDirectoryItems .title{
+    font-size: 1.3em;
+}
+
+.serviceDirectoryItems .dateInformation{
+    font-size: 0.9em;
+}
+
+
+.serviceDirectory_img{
+    max-width: 150px;
+    height: auto;
+}
+
+.serviceDirectoryItems li{
+    width:100%;
+    display: table;
+    border-bottom: 1px solid #ccc;
+    padding : 10px;
+}

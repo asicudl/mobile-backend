@@ -1,0 +1,98 @@
+<section data-ng-controller="ServiceDirectoryController">
+    <form name="serviceDirectoryForm" class="form-horizontal col-md-10" role="form" data-ng-submit="create(serviceDirectoryForm.$valid)" novalidate>
+
+        <div class="form-group" ng-class="{'has-error' : submitted && serviceDirectoryForm.title.$invalid}">
+            <label mean-token="'create-title'" class="col-md-3 control-label">Title</label>
+            <div class="col-md-9">
+                <input name="title" type="text" class="form-control" data-ng-model="title" id="title" placeholder="Event title" required>
+                <div ng-show="submitted && serviceDirectoryForm.title.$invalid" class="help-block">
+                    <p ng-show="serviceDirectoryForm.title.$error.required">Title is required</p>
+                </div>
+            </div>
+        </div>  
+
+        <div class="form-group">
+            <label for="inputImage" class="col-md-3 control-label">Upload an image<br/> (150x100)</label>
+            <div class="col-md-9">
+                <img id="img" class="activityEvent_img" src="{{loadedimg}}" />
+                <div ng-show="submitted && serviceDirectoryForm.image.$invalid" class="help-block">
+                    <p ng-show="serviceDirectoryForm.title.$error.badwidth">Incorrect width or height is required</p>
+                </div>
+                <input id="inputImage"
+                   type="file"
+                   accept="image/*"
+                   onchange="angular.element(this).scope().changeFile()"
+                   ng-model="myfileimage"
+                   />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Attending Schedule</label>
+            <div class="col-md-9">
+                <input name="attendingSchedule" type="text" class="form-control" data-ng-model="attendingSchedule" id="attendingSchedule" placeholder="Ex: Mon-Fri (08:00 - 14:00)">
+            </div>
+        </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Location</label>
+            <div class="col-md-9">
+                <input name="location" type="text" class="form-control" data-ng-model="location" id="location" placeholder="Location" >
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Published</label>
+            <div class="col-md-1">
+                <input name="published" type="checkbox" class="form-control" data-ng-model="published" id="published" placeholder="published" checked="true" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Service URL</label>
+            <div class="col-md-9">
+                <input name="URL" type="url" class="form-control" data-ng-model="URL" id="URL" placeholder="http://www.domain.com/service-page" >
+            </div>
+        </div>   
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">G.Maps URL</label>
+            <div class="col-md-9">
+                <input name="gmapsURL" type="url" class="form-control" data-ng-model="gmapsURL" id="gmapsURL" placeholder="Google Maps Location URL" >
+            </div>
+        </div>
+    
+    
+    <div class="form-group">
+        <label class="col-md-3 control-label">Phone Number</label>
+        <div class="col-md-9">
+            <input name="phoneNumber" type="text" class="form-control" data-ng-model="phoneNumber" id="phoneNumber" placeholder="+34 973 70 20 00" >
+        </div>
+    </div>   
+    
+    <div class="form-group">
+        <label class="col-md-3 control-label">Email</label>
+        <div class="col-md-9">
+            <input name="email" type="email" class="form-control" data-ng-model="email" id="email" placeholder="user@domain.com" >
+        </div>
+    </div>   
+    
+        <div class="form-group" ng-class="{ 'has-error' : submitted && serviceDirectoryForm.content.$invalid }">
+            <label mean-token="'create-content'" for="content" class="col-md-3 control-label">Description</label>
+            <div class="col-md-9">
+                <text-angular name="content" data-ng-model="content" id="content" required></text-angular>
+                <div ng-show="submitted && serviceDirectoryForm.content.$invalid" class="help-block">
+                    <p ng-show="serviceDirectoryForm.content.$error.required">Service Description</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <button mean-token="'create-submit'" type="submit" class="btn btn-info">Submit</button>
+            </div>
+        </div>
+    </form>
+</section>

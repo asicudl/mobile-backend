@@ -1,0 +1,97 @@
+<section data-ng-controller="ServiceDirectoryController" data-ng-init="findOne()">
+    
+
+    <h2>{{serviceDirectory.title}}</h2>
+
+    
+    <div data-ng-if="hasAuthorization(serviceDirectory)">
+        <a class="btn" href="#!/servicedirectory/{{serviceDirectory._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove(serviceDirectory);">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    
+    <div  class="form-horizontal col-md-6" >
+        <div class="form-group" >
+            <label class="col-md-3 control-label">Title</label>
+            <div class="col-md-9">
+                {{serviceDirectory.title}}
+            </div>
+        </div>
+        
+        <div class="form-group" >
+            <label class="col-md-3 control-label">Image:</label>
+            <div class="col-md-9">
+                <img class="serviceDirectory_img" src="{{serviceDirectory.image}}" />
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <label class="col-md-3 control-label">Attending Schedule</label>
+            <div class="col-md-9">
+                {{serviceDirectory.attendingSchedule}}
+            </div>
+        </div> 
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Location</label>
+            <div class="col-md-9">
+                {{serviceDirectory.location}}
+            </div>
+        </div>  
+        
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Published</label>
+            <div class="col-md-9">
+                {{serviceDirectory.published}}
+            </div>
+        </div>  
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Service URL</label>
+            <div>
+                {{serviceDirectory.URL}}
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">GMaps URL</label>
+            <div>
+                {{serviceDirectory.gmapsURL}}
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Phone</label>
+            <div>
+                {{serviceDirectory.phoneNumber}}
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Email</label>
+            <div>
+                {{serviceDirectory.email}}
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Description</label>
+            <div ta-bind name="content" data-ng-model="serviceDirectory.content" id="content" class="col-md-9">               </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-3 control-label">Created:</label> <div class="col-md-9">{{serviceDirectory.created | date:'medium'}}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Last Modified: </label> <div class="col-md-9">{{serviceDirectory.lastUpdate | date:'medium'}}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">By:</label> <div class="col-md-9">{{serviceDirectory.user.name}}</div>
+        </div>
+
+</section>

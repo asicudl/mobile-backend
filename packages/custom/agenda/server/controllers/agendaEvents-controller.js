@@ -131,8 +131,9 @@ exports.allNewEvents = function(req, res) {
                 error: 'Cannot list the agenda events'
             });
         }
+
         console.log ('el currentDate' + new Date());
-        res.json({'agendaItems':agendaItems, 'currentDate': new Date()});
+        res.json({'agendaItems': agendaItems, 'currentDate': new Date()});
     });
 };
 

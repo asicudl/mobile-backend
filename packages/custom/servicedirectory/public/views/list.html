@@ -1,0 +1,30 @@
+<section data-ng-controller="ServiceDirectoryController" data-ng-init="find()">
+  <ul class="serviceDirectoryItems unstyled">
+    <li data-ng-repeat="serviceDirectory in serviceDirectoryItems">
+            <div class="col-md-3">
+              
+                <img class="serviceDirectory_img" ng-show="{{serviceDirectory.image !== ''}}" src="{{serviceDirectory.image}}" />
+
+            </div>    
+            <div class="col-md-5">
+                <a data-ng-href="#!/servicedirectory/{{serviceDirectory._id}}" class="title">{{serviceDirectory.title}}</a>
+                <span data-ng-if="hasAuthorization(serviceDirectory)">
+                    <a class="btn" href="/#!/servicedirectory/{{serviceDirectory._id}}/edit">
+                    <i class="glyphicon glyphicon-edit"></i>
+                  </a>
+                  <a class="btn" data-ng-click="remove(serviceDirectory);">
+                    <i class="glyphicon glyphicon-trash"></i>
+                  </a>
+                </span>
+                <div class="dateInformation">
+                    <p><span>Created / Updated: {{serviceDirectory.created | date:'medium'}} / {{serviceDirectory.lastUpdate | date:'medium'}}</span></p>
+                </div>
+                <p><i ng-show="serviceDirectory.published" title="Published" class="glyphicon glyphicon-eye-open" ></i> <i ng-hide="serviceDirectory.published" class="glyphicon glyphicon-eye-close" title="Unpublished"></i></p>
+                
+            </div>
+            
+    </li>
+  </ul>
+  <h3 data-ng-hide="!serviceDirectoryItems || serviceDirectoryItems.length">No activity items yet. <br> Why don't you <a href="/#!/servicedirectory/create">Create One</a>?</h3>
+</section>
+

@@ -67,7 +67,7 @@ exports.update = function(req, res) {
 exports.destroy = function(req, res) {
     var activityEvent = req.activityEvent;
 
-    activityEvent.status = 'deleted';
+    activityEvent.state = 'deleted';
     activityEvent.lastUpdate = new Date();
 
     activityEvent.save(function(err) {
