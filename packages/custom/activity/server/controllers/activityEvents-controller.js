@@ -106,18 +106,17 @@ exports.all = function(req, res) {
 
 
 /**
- * Public API List of AgendaEvents
+ * Public API List of ActivityEvents
  */
 exports.allNewEvents = function(req, res) {
     var searchCriteria ={};
 
-    if (req.body.lastMessage){
-        searchCriteria =  {'state': 'active'};
+	if (req.body.lastActivityDate){
+        searchCriteria =  {'state': 'active', 'lastUpdate' : {'$gt': req.body.lastServicesUpdate}};
     }else{
         searchCriteria = {'state': 'active','published': true};
     }
-
-
+		
     ActivityEvents.find(searchCriteria).sort ('dueDate') .exec(function(err, activityEvents) {
         if (err) {
             console.log('error ' + err);

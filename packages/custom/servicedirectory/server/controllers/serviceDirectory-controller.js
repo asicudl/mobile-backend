@@ -22,7 +22,7 @@ exports.serviceDirectory = function(req, res, next, id) {
 
 
 /**
- * Create an activity evetn
+ * Create an serviceDirectory event
  */
 exports.create = function(req, res) {
 
@@ -109,16 +109,15 @@ exports.all = function(req, res) {
  * Public API List of Service Directory Items
  */
 exports.allNewServices = function(req, res) {
-    var searchCriteria =  req.body.lastServicesUpdate ? {'lastUpdate' : req.body.lastServicesUpdate} : {};
+	var searchCriteria =  {'lastUpdate' : {'$gt': req.body.lastServicesUpdate}};
 
-    ServiceDirectory.find(searchCriteria).sort ('title').exec(function(err, serviceDirectory) {
+	ServiceDirectory.find(searchCriteria).sort ('title').exec(function(err, serviceDirectory) {
         if (err) {
             console.log('error ' + err);
             return res.status(500).json({
                 error: 'Cannot list the service directory items'
             });
         }
-        res.json({'activityItems' : serviceDirectory, 'currentDate' : new Date()});
+        res.json({'offeredServiceItems' : serviceDirectory, 'currentDate' : new Date()});
     });
 };
-
