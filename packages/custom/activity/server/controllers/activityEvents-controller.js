@@ -109,10 +109,10 @@ exports.all = function(req, res) {
  * Public API List of ActivityEvents
  */
 exports.allNewEvents = function(req, res) {
-    var searchCriteria ={};
+    var searchCriteria = {};
 
-	if (req.body.lastActivityDate){
-        searchCriteria =  {'state': 'active', 'lastUpdate' : {'$gt': req.body.lastServicesUpdate}};
+	if (req.body.lastActivityDate!==undefined){
+        searchCriteria =  {'state': 'active', 'lastUpdate' : {'$gt': req.body.lastActivityDate}};
     }else{
         searchCriteria = {'state': 'active','published': true};
     }

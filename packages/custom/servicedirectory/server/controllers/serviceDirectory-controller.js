@@ -109,8 +109,12 @@ exports.all = function(req, res) {
  * Public API List of Service Directory Items
  */
 exports.allNewServices = function(req, res) {
-	var searchCriteria =  {'lastUpdate' : {'$gt': req.body.lastServicesUpdate}};
-
+	var searchCriteria = {};
+    
+    if(req.body.lastServicesUpdate !== undefined){
+        searchCriteria = {'lastUpdate' : {'$gt': req.body.lastServicesUpdate}};
+    }
+    
 	ServiceDirectory.find(searchCriteria).sort ('title').exec(function(err, serviceDirectory) {
         if (err) {
             console.log('error ' + err);
