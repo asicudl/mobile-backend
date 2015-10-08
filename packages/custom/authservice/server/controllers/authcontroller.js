@@ -46,8 +46,8 @@ exports.createOrUpdate = function(req, res, next) {
          authclient  = new AuthClient(req.body); 
       }
       
-       req.assert('username', 'Username cannot be more than 20 characters').len(1, 20);
-       req.assert('device', 'Device id cannot be more than 20 characters').len(1, 20);
+       req.assert('username', 'Username cannot be more than 40 characters').len(1, 40);
+       req.assert('device', 'Device id cannot be more than 40 characters').len(1, 40);
   
         var errors = req.validationErrors();
         
