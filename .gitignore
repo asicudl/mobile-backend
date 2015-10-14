@@ -76,3 +76,5 @@ modules/views/
 ##
 
 packages/custom/message/server/controllers/msg-settings.json
+config/env/production.js
+config/env/development.js
