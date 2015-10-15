@@ -8,12 +8,13 @@ var mongoose = require('mongoose'),
   //util = require('util'),
     _ = require('lodash'),
   agSender = require('unifiedpush-node-sender'),
-  settings = require('./msg-settings.json');
+  config = require('meanio').loadConfig();
 
     
 var options = {
     ttl: 3600,
 };
+ var settings = config.push;
 
 var asFarLastWeek = function (curdate){
     var today = new Date();
