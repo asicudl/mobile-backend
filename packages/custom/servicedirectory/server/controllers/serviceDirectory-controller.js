@@ -111,9 +111,12 @@ exports.all = function(req, res) {
 exports.allNewServices = function(req, res) {
 	var searchCriteria = {};
     
-    if(req.body.lastServicesUpdate !== undefined){
-        searchCriteria = {'lastUpdate' : {'$gt': req.body.lastServicesUpdate}};
+    if (req.body.lastServicesUpdate !== undefined){
+        searchCriteria =  {'lastUpdate' : {'$gt': req.body.lastServicesUpdate}};
+    }else{
+        searchCriteria = {'state': 'active','published': true};
     }
+		
     
 	ServiceDirectory.find(searchCriteria).sort ('title').exec(function(err, serviceDirectory) {
         if (err) {

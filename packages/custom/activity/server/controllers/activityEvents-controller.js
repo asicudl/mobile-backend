@@ -112,7 +112,7 @@ exports.allNewEvents = function(req, res) {
     var searchCriteria = {};
 
 	if (req.body.lastActivityDate!==undefined){
-        searchCriteria =  {'state': 'active', 'lastUpdate' : {'$gt': req.body.lastActivityDate}};
+        searchCriteria =  {'lastUpdate' : {'$gt': req.body.lastActivityDate}};
     }else{
         searchCriteria = {'state': 'active','published': true};
     }
