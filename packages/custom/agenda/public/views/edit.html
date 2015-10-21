@@ -10,10 +10,13 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error' : submitted && agendaEventsForm.eventDate.$invalid}">
             <label class="col-md-3 control-label">Event date:</label>
             <div class="col-md-9">
-                <datetimepicker starting-day="1" min-date="minDate" show-weeks="true" hour-step="1" minute-step="15" data-ng-model="agendaEvent.eventDate" show-meridian="false" date-format="dd-MMM-yyyy" date-options="" date-disabled="false" readonly-time="false"></datetimepicker>
+                <datetimepicker id="eventDate" name="eventDate" starting-day="1" min-date="minDate" show-weeks="true" hour-step="1" minute-step="15" data-ng-model="agendaEvent.eventDate" show-meridian="false" date-format="dd-MMM-yyyy" date-options="" date-disabled="false" readonly-time="false" required></datetimepicker>
+                <div ng-show="submitted && agendaEventsForm.eventDate.$invalid" class="help-block">
+                    <p ng-show="agendaEventsForm.eventDate.$invalid">Event Date is required</p>
+                </div>
             </div>
         </div>
       
