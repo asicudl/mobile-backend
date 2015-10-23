@@ -10,17 +10,23 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error' : submitted && activityEventsForm.period.$invalid }">
             <label class="col-md-3 control-label">Period</label>
             <div class="col-md-9">
                 <input name="period" type="text" class="form-control" data-ng-model="activityEvent.period" id="period" placeholder="Period" required>
+                <div ng-show="submitted && activityEventsForm.period.$invalid" class="help-block">
+                    <p ng-show="activityEventsForm.period.$error.required">Period is required</p>
+                </div>
             </div>
         </div>
         
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error' : submitted && activityEventsForm.dueDate.$invalid}">
             <label class="col-md-3 control-label">Due date:</label>
             <div class="col-md-9">
-                <datetimepicker starting-day="1" show-weeks="true" hour-step="1" minute-step="15" data-ng-model="activityEvent.dueDate" show-meridian="false" date-format="dd-MMM-yyyy" date-options="" date-disabled="false" readonly-time="false"></datetimepicker>
+                <datetimepicker id="dueDate" name="dueDate" starting-day="1" min-date="minDate" show-weeks="true" hour-step="1" minute-step="15" data-ng-model="dueDate" show-meridian="false" date-format="dd-MMM-yyyy" date-options="" date-disabled="false" readonly-time="false" required></datetimepicker>
+                <div ng-show="submitted && activityEventsForm.dueDate.$invalid" class="help-block">
+                    <p ng-show="activityEventsForm.dueDate.$invalid">Due Date is required</p>
+                </div>
             </div>
         </div>
         

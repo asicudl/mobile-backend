@@ -19,12 +19,12 @@ AgendaEvents.register(function(app, auth, database, authservice) {
     //We are adding a link to the main menu for all authenticated users
     AgendaEvents.menus.add({
         'roles': ['authenticated'],
-        'title': 'Agenda Events',
+        'title': 'Agenda',
         'link': 'all agenda events'
     });
     AgendaEvents.menus.add({
         'roles': ['authenticated'],
-        'title': 'Create New Agenda Event',
+        'title': 'New Event',
         'link': 'create agenda event'
     });
 

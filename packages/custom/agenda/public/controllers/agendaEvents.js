@@ -22,7 +22,7 @@ angular.module('mean.agenda')
                          if (!agendaEvent || !agendaEvent.user) return false;
                          return $scope.global.isAdmin || agendaEvent.user._id === $scope.global.user._id;
                      };
-
+                    
                      $scope.create = function(isValid) {
                          if (isValid) {
                            
@@ -39,7 +39,7 @@ angular.module('mean.agenda')
 
                              this.title = '';
                              this.content = '';
-                             this.eventDate = '';
+                             this.eventDate = new Date();
                              this.location = '';
                          } else {
                              $scope.submitted = true;

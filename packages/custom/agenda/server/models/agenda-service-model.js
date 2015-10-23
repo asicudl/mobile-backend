@@ -31,7 +31,8 @@ var AgendaEventsSchema = new Schema({
     },
     eventDate: {
         type: Date,
-        defaut: Date.now
+        defaut: Date.now,
+        required: true
     },
     content: {
         type: String,
