@@ -10,7 +10,15 @@ var mongoose = require('mongoose'),
   agSender = require('unifiedpush-node-sender'),
   settings = require('./msg-settings.json');
 
-    
+// role authorization helpers
+var isGroupPublisher = function(req) {    
+    return (_.contains(req.user.roles,'messagesPublisher'));
+};
+
+var isGroupAdmin = function(req) {
+    return (_.contains(req.user.roles,'messagesAdmin'));
+};
+
 var options = {
     ttl: 3600,
 };
@@ -37,7 +45,8 @@ exports.message = function(req, res, next, id) {
   Message.load(id, function(err, message) {
     if (err) return next(err);
     if (!message) return next(new Error('Failed to load message ' + id));
-    req.message = message;
+    if (isGroupAdmin(req) || (isGroupPublisher(req) && req.user.username === message.user.username))
+        req.message = message;
     next();
   });
 };
@@ -58,36 +67,44 @@ exports.create = function(req, res) {
   var message = new Message(req.body);
   message.user = req.user;
 
-  message.save(function(err) {
-    if (err) {
-      return res.status(500).json({
-        error: 'Cannot save the message'
-      });
-    }
-    
+  if (isGroupAdmin(req) || isGroupPublisher(req)){
       
-    //Send it to the platform
-    var sendMessage = {
-        alert: message.subject,
-        sound: 'default',
-        badge: 2,
-        simplePush: 'version=123',
-        contentAvailable: true,
-    };  
+      message.save(function(err) {
+        if (err) {
+          return res.status(500).json({
+            error: 'Cannot save the message'
+          });
+        }
 
-    options.categories = message.receptientsIds;
+
+        //Send it to the platform
+        var sendMessage = {
+            alert: message.subject,
+            sound: 'default',
+            badge: 2,
+            simplePush: 'version=123',
+            contentAvailable: true,
+        };  
+
+        options.categories = message.receptientsIds;
+
+        agSender.Sender( settings ).send( sendMessage, options )
+        .on( 'success', function( response ) {
+            console.log( 'success called', response );
+        })
+        .on( 'error', function( err ) {
+            console.log( err );
+        });      
+
+        res.json(message);
+
+      });
       
-    agSender.Sender( settings ).send( sendMessage, options )
-    .on( 'success', function( response ) {
-        console.log( 'success called', response );
-    })
-    .on( 'error', function( err ) {
-        console.log( err );
-    });      
-      
-    res.json(message);
-      
-  });
+     }else{
+        return res.status(500).json({
+            error: 'Cannot save the message'
+        });
+    }
 };
 
 /**
@@ -98,15 +115,23 @@ exports.update = function(req, res) {
 
   message = _.extend(message, req.body);
 
-  message.save(function(err) {
-    if (err) {
-      return res.status(500).json({
-        error: 'Cannot update the message'
-      });
-    }
-    res.json(message);
+  if (isGroupAdmin(req) || (isGroupPublisher(req) && req.user.username === message.user.username)){
+      
+      message.save(function(err) {
+        if (err) {
+          return res.status(500).json({
+            error: 'Cannot update the message'
+          });
+        }
+        res.json(message);
 
-  });
+      });
+
+  }else{
+        return res.status(500).json({
+            error: 'Cannot update activities'
+        });
+  }
 };
 
 /**
@@ -115,29 +140,47 @@ exports.update = function(req, res) {
 exports.destroy = function(req, res) {
   var message = req.message;
 
-  message.remove(function(err) {
-    if (err) {
-      return res.status(500).json({
-        error: 'Cannot delete the message'
-      });
-    }
-    res.json(message);
+  if (isGroupAdmin(req) || (isGroupPublisher(req) && req.user.username === message.user.username)){
+      
+      message.remove(function(err) {
+        if (err) {
+          return res.status(500).json({
+            error: 'Cannot delete the message'
+          });
+        }
+        res.json(message);
 
-  });
+      });
+
+  }else{
+        return res.status(500).json({
+            error: 'Cannot delete the agendaEvent'
+        });
+  }
 };
 
 /**
  * Show an message
  */
 exports.show = function(req, res) {
-  res.json(req.message);
+  if (isGroupAdmin(req) || (isGroupPublisher(req) && req.user.username === req.message.user.username)){
+    res.json(req.message);
+  }
 };
 
 /**
  * List of Messages
  */
 exports.all = function(req, res) {
-  Message.find().sort('-created').limit(50).populate('user', 'name username').exec(function(err, messages) {
+    
+    var findFilter = {'author': 'unexistingAuthor'};
+    if (isGroupAdmin(req)){
+        findFilter = {};
+    }else if (isGroupPublisher(req)){
+        findFilter = {'user': req.user};
+    }
+    
+  Message.find(findFilter).sort('-created').limit(50).populate('user', 'name username').exec(function(err, messages) {
     if (err) {
       return res.status(500).json({
         error: 'Cannot list the messages'
