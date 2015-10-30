@@ -83,7 +83,7 @@ exports.update = function(req, res) {
     agendaEvent = _.extend(agendaEvent, req.body);
     agendaEvent.lastUpdate = new Date();
 
-    if (isGroupAdmin(req) || isGroupPublisher(req)){
+    if (isGroupAdmin(req) || isGroupPublisher(req) && req.user.username === agendaEvent.user.username){
 
         agendaEvent.save(function(err) {
             if (err) {
