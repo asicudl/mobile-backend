@@ -175,9 +175,23 @@ exports.allNewEvents = function(req, res) {
                 error: 'Cannot list the agenda events'
             });
         }
-
+        
+        //si algun ítem s'ha esborrat o despublicat, només enviem l'identificador i l'estat, la resta de dades no cal enviar-les.
+        var items = [];
+        for(var i in agendaItems){
+            var item = agendaItems[i];
+            if(item.state === 'deleted'){
+                var row = {};
+                row._id = item._id;
+                row.state = item.state;
+                items.push(row);
+            }
+            else{
+                items.push(item);
+            }
+        }
+                    
         console.log ('el currentDate' + new Date());
-        res.json({'agendaItems': agendaItems, 'currentDate': new Date()});
+        res.json({'agendaItems': items, 'currentDate': new Date()});
     });
 };
-

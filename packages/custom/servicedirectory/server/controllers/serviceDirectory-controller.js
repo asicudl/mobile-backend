@@ -167,6 +167,26 @@ exports.allNewServices = function(req, res) {
                 error: 'Cannot list the service directory items'
             });
         }
-        res.json({'offeredServiceItems' : serviceDirectory, 'currentDate' : new Date()});
+
+        //si algun ítem s'ha esborrat o despublicat, només enviem l'identificador i l'estat, la resta de dades no cal enviar-les.
+        var items = [];
+        for(var i in serviceDirectory){
+            var item = serviceDirectory[i];
+            if(item.state === 'deleted' || !item.published){
+                var row = {};
+                row._id = item._id;
+                if(item.state === 'deleted'){
+                    row.state = item.state;
+                }
+                if(!item.published){
+                    row.published = item.published;
+                }
+                items.push(row);
+            }
+            else{
+                items.push(item);
+            }
+        }
+        res.json({'offeredServiceItems' : items, 'currentDate' : new Date()});
     });
 };
