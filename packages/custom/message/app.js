@@ -24,7 +24,7 @@ Message.menus.add({
   });
   Message.menus.add({
     'roles': ['authenticated'],
-    'title': 'Create New Message',
+    'title': 'New Message',
     'link': 'create message'
   });
   

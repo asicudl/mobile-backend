@@ -56,12 +56,12 @@ angular.module('mean.activity')
                          var option;
                          
                          if (activityEvent) {
-                            option = confirm ('Would you like to remove the event "' + activityEvent.title + '"');      
+                            option = confirm ('Would you like to remove the activity "' + activityEvent.title + '"');      
                              
                             if (option){
                                 activityEvent.$remove(function(response) {
 
-                                    for (var i in $scope.activityEvent) {
+                                    for (var i in $scope.activityEvents) {
                                         if ($scope.activityEvents[i] === activityEvent) {
                                             $scope.activityEvents.splice(i,1);
                                          }
@@ -72,8 +72,9 @@ angular.module('mean.activity')
                              }
                          } else {
                              
-                             option = confirm ('Would you like to remove the event "' +  $scope.activityEvent.title + '"');
+                             option = confirm ('Would you like to remove the activity "' +  $scope.activityEvent.title + '"');
                              if (option){
+                                 
                                  $scope.activityEvent.$remove(function(response) {
                                     $location.path('activityevents');
                                 });

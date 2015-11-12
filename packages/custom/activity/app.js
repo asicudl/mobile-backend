@@ -24,7 +24,7 @@ ActivityEvents.register(function(app, auth, database, authservice) {
     });
     ActivityEvents.menus.add({
         'roles': ['authenticated'],
-        'title': 'New Activity Event',
+        'title': 'New Activity',
         'link': 'create activity event'
     });
 

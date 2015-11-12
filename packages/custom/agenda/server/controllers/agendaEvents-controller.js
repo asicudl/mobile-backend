@@ -7,6 +7,16 @@ var mongoose = require('mongoose'),
     AgendaEvents = mongoose.model('AgendaEvents'),
     _ = require('lodash');
 
+// role authorization helpers
+var isGroupPublisher = function(req) {    
+    return (_.contains(req.user.roles,'agendaPublisher'));
+};
+
+var isGroupAdmin = function(req) {
+    return (_.contains(req.user.roles,'agendaAdmin'));
+};
+
+
 var asFarLastWeek = function (curdate){
     var today = new Date();
     var dateReturn = new Date ();
@@ -27,9 +37,11 @@ var asFarLastWeek = function (curdate){
  */
 exports.agendaEvent = function(req, res, next, id) {
     AgendaEvents.load(id, function(err, agendaEvent) {
+
         if (err) return next(err);
         if (!agendaEvent) return next(new Error('Failed to load the agenda event ' + id));
-        req.agendaEvent = agendaEvent;
+        if (isGroupAdmin(req) || (isGroupPublisher(req) && req.user.username === agendaEvent.user.username))
+            req.agendaEvent = agendaEvent;
         next();
     });
 };
@@ -43,16 +55,23 @@ exports.create = function(req, res) {
     var agendaEvent = new AgendaEvents(req.body);
     agendaEvent.user = req.user;
 
-    agendaEvent.save(function(err) {
-        if (err) {
-            return res.status(500).json({
-                error: 'Cannot save the agendaEvent'
-            });
-        }
+    if (isGroupAdmin(req) || isGroupPublisher(req)){
+        agendaEvent.save(function(err) {
+            if (err) {
+                return res.status(500).json({
+                    error: 'Cannot save the agendaEvent'
+                });
+            }
 
-        res.json(agendaEvent);
+            res.json(agendaEvent);
 
-    });
+        });
+        
+    }else{
+        return res.status(500).json({
+            error: 'Cannot save the agendaEvent'
+        });
+    }
 };
 
 /**
@@ -64,15 +83,23 @@ exports.update = function(req, res) {
     agendaEvent = _.extend(agendaEvent, req.body);
     agendaEvent.lastUpdate = new Date();
 
-    agendaEvent.save(function(err) {
-        if (err) {
-            return res.status(500).json({
-                error: 'Cannot update the agendaEvent'
-            });
-        }
+    if (isGroupAdmin(req) || isGroupPublisher(req) && req.user.username === agendaEvent.user.username){
 
-        res.json(agendaEvent);
-    });
+        agendaEvent.save(function(err) {
+            if (err) {
+                return res.status(500).json({
+                    error: 'Cannot update the agendaEvent'
+                });
+            }
+
+            res.json(agendaEvent);
+        });
+
+    }else{
+        return res.status(500).json({
+            error: 'Cannot update the agendaEvent'
+        });
+    }
 };
 
 /**
@@ -81,32 +108,49 @@ exports.update = function(req, res) {
 exports.destroy = function(req, res) {
     var agendaEvent = req.agendaEvent;
     
-    agendaEvent.state = 'deleted';
-    agendaEvent.lastUpdate = new Date();
+    if (isGroupAdmin(req) || (isGroupPublisher(req) && req.user.username === agendaEvent.user.username)){
         
-    agendaEvent.save(function(err) {
-        if (err) {
-            return res.status(500).json({
-                error: 'Cannot delete the agendaEvent'
-            });
-        }
+        agendaEvent.state = 'deleted';
+        agendaEvent.lastUpdate = new Date();
 
-        res.json(agendaEvent);
-    });
+        agendaEvent.save(function(err) {
+            if (err) {
+                return res.status(500).json({
+                    error: 'Cannot delete the agendaEvent'
+                });
+            }
+
+            res.json(agendaEvent);
+        });
+        
+    }else{
+        return res.status(500).json({
+            error: 'Cannot delete the agendaEvent'
+        });
+    }
 };
 
 /**
  * Show an agenda event
  */
 exports.show = function(req, res) {
-    res.json(req.agendaEvent);
+    if (isGroupAdmin(req) || (isGroupPublisher(req) && req.user.username === req.agendaEvent.user.username))
+        res.json(req.agendaEvent);
 };
 
 /**
  * List of agenda events
  */
 exports.all = function(req, res) {
-    AgendaEvents.find({'state': 'active'}).sort('eventDate').populate('user', 'name username').exec(function(err, agendaItems) {
+    
+    var findFilter = {'state': 'unexistingState'};
+    if (isGroupAdmin(req)){
+        findFilter = {'state': 'active'};
+    }else if (isGroupPublisher(req)){
+        findFilter = {'state': 'active', 'user': req.user};
+    }
+    
+    AgendaEvents.find(findFilter).sort('eventDate').populate('user', 'name username').exec(function(err, agendaItems) {
         if (err) {
             return res.status(500).json({
                 error: 'Cannot list the agenda events'
@@ -131,9 +175,23 @@ exports.allNewEvents = function(req, res) {
                 error: 'Cannot list the agenda events'
             });
         }
-
+        
+        //si algun ítem s'ha esborrat o despublicat, només enviem l'identificador i l'estat, la resta de dades no cal enviar-les.
+        var items = [];
+        for(var i in agendaItems){
+            var item = agendaItems[i];
+            if(item.state === 'deleted'){
+                var row = {};
+                row._id = item._id;
+                row.state = item.state;
+                items.push(row);
+            }
+            else{
+                items.push(item);
+            }
+        }
+                    
         console.log ('el currentDate' + new Date());
-        res.json({'agendaItems': agendaItems, 'currentDate': new Date()});
+        res.json({'agendaItems': items, 'currentDate': new Date()});
     });
 };
-
