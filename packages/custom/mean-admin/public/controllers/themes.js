@@ -22,7 +22,7 @@ angular.module('mean.mean-admin').controller('ThemesController', ['$scope', 'Glo
             // Will add preview options soon
             // $('link').attr('href', theme.css);
             // $scope.selectedTheme = theme;
-            $('.progress-striped').show();
+            //$('.progress-striped').show();
 
             $http.get('/admin/themes?theme=' + theme.css).
             success(function(data, status, headers, config) {
@@ -31,7 +31,7 @@ angular.module('mean.mean-admin').controller('ThemesController', ['$scope', 'Glo
             }).
             error(function(data, status, headers, config) {
                 alert('error');
-                $('.progress-striped').hide();
+                //$('.progress-striped').hide();
 
             });
         };

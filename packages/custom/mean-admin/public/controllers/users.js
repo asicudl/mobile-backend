@@ -22,7 +22,7 @@ angular.module('mean.mean-admin').controller('UsersController', ['$scope', 'Glob
             title: 'Roles',
             schemaKey: 'roles',
             type: 'select',
-            options: ['authenticated', 'admin'],
+            options: ['authenticated', 'admin','udlaccount','agendaAdmin','agendaPublisher','servicesAdmin','servicesPublisher','messagesAdmin','messagesPublisher','activitiesAdmin','activitiesPublisher'],
             inTable: true
         }, {
             title: 'Password',
