@@ -18,7 +18,7 @@ Admin.register(function(app, auth, database) {
         global: true
     });
 
-    Admin.aggregateAsset('js', '../lib/zeroclipboard/dist/ZeroClipboard.js', {
+    Admin.aggregateAsset('js', '../lib/zeroclipboard/ZeroClipboard.js', {
         absolute: false,
         global: true
     });
