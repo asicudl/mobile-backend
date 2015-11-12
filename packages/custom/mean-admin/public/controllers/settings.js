@@ -37,9 +37,11 @@ angular.module('mean.mean-admin').controller('SettingsController', ['$scope', 'G
                 var cur = resultholder,
                     prop = '',
                     m;
-                while (m = regex.exec(p)) {
+                m = regex.exec(p);
+                while (m) {
                     cur = cur[prop] || (cur[prop] = (m[2] ? [] : {}));
                     prop = m[2] || m[1];
+                    m = regex.exec(p);
                 }
                 cur[prop] = data[p];
             }
