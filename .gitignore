@@ -64,7 +64,6 @@ test/coverage/
 modules/public/
 modules/views/
 /public/build/
-/packages/contrib/
 
 # --------------------
 # vim Files
@@ -76,3 +75,5 @@ modules/views/
 ##
 
 packages/custom/message/server/controllers/msg-settings.json
+config/env/production.js
+config/env/development.js

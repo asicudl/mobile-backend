@@ -21,8 +21,6 @@ module.exports = function(passport) {
   // Deserialize the user object based on a pre-serialized token
   // which is the user id
   passport.deserializeUser(function(id, done) {
-      console.log ('Desserializing id '  + id); 
-      
       User.findOne({
       _id: id
     }, '-salt -hashed_password', function(err, user) {
