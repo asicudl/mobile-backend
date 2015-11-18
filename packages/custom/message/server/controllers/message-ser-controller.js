@@ -5,7 +5,6 @@
  */
 var mongoose = require('mongoose'),
   Message = mongoose.model('Message'),
-  //util = require('util'),
     _ = require('lodash'),
   agSender = require('unifiedpush-node-sender'),
   config = require('meanio').loadConfig();
@@ -196,10 +195,9 @@ exports.all = function(req, res) {
  * List of Messages
  */
 exports.toMe = function(req, res) {
-  
-    var receptientsIds =  _.union (settings.mandatoryCategories,[req.user.username]);
-    console.log (receptientsIds);
-var searchCriteria =  {'receptientsIds' : {'$in': receptientsIds},'created' : {'$gt': asFarLastWeek(req.body.lastMessageDate)}};
+
+    var receptientsIds =  _.union (_.values(settings.mandatoryCategories),[req.user.username]);
+    var searchCriteria =  {'receptientsIds' : {'$in': receptientsIds},'created' : {'$gt': asFarLastWeek(req.body.lastMessageDate)}};
     
   Message.find(searchCriteria).sort('-created').populate('user', 'name username').exec(function(err, messages) {
     if (err) {
@@ -219,10 +217,10 @@ exports.registerDevice = function (req,res){
     
     if (req.body.alias !== 'unregister'){
         categories.push(req.user.username);
-        categories = _.union (categories,settings.mandatoryCategories);
-        categories = _.union (categories,_.intersection (req.body.categories, settings.allowedCategories));
+        categories = _.union (categories,_.values(settings.mandatoryCategories));
+        categories = _.union (categories,_.intersection (req.body.categories, _.values(settings.allowedCategories)));
     }else{
-        categories = _.union (categories, settings.unregisterCategories);
+        categories = _.union (categories, _.values(settings.unregisterCategories));
     }
     
     agSender.Register( settings             ).register(req.user.username,req.body.deviceToken,req.body.deviceType,req.body.operatingSystem,req.body.osVersion,categories)
