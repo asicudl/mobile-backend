@@ -18,3 +18,22 @@
     border-bottom: 1px solid #ccc;
     padding : 10px;
 }
+
+.attendingSchedule     .ta-editor,
+.attendingSchedule     .ta-editor > .ta-bind,
+.location     .ta-editor,
+.location     .ta-editor > .ta-bind {
+        min-height: 100px;
+    }
+
+.buttonNew {
+    position: fixed; 
+    top: 70px; 
+    right: 70px;
+}
+
+.titleServices {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}

@@ -22,11 +22,11 @@ ActivityEvents.register(function(app, auth, database, authservice) {
         'title': 'Activities',
         'link': 'all activity events'
     });
-    ActivityEvents.menus.add({
+/*    ActivityEvents.menus.add({
         'roles': ['authenticated'],
         'title': 'New Activity',
         'link': 'create activity event'
-    });
+    });*/
 
     ActivityEvents.aggregateAsset('css', 'activityEvents.css');
 

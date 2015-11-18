@@ -29,3 +29,15 @@
     border-bottom: 1px solid #ccc;
     padding : 10px;
 }
+
+.buttonNew {
+    position: fixed; 
+    top: 70px; 
+    right: 70px;
+}
+
+.titleActivities {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}

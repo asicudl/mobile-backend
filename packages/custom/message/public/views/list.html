@@ -1,4 +1,11 @@
 <section data-ng-controller="MessagesController" data-ng-init="find()">
+    <a href="#!/messages/create">
+        <button type="button" class="btn btn-default buttonNew">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span> New</span>
+        </button>
+    </a>
+    <div class="titleMessages">Messages</div> 
   <ul class="messages unstyled">
     <li data-ng-repeat="message in messages">
       <!-- <span>{{message.created | date:'medium'}}</span> /

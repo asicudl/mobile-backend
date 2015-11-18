@@ -27,18 +27,17 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label">Location</label>
+            <label class="col-md-3 control-label">Attending Schedule</label>
             <div class="col-md-9">
-                <input name="location" type="text" class="form-control" data-ng-model="serviceDirectory.location" id="location" placeholder="Location" required>
+                <text-angular ta-toolbar="[['h2','h3','h4'],['bold','italics','underline','ul', 'ol'],['insertLink']]" class="attendingSchedule" name="attendingSchedule" data-ng-model="serviceDirectory.attendingSchedule" id="attendingSchedule" placeholder="Ex: Mon-Fri (08:00 - 14:00)"></text-angular>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label">Attending Schedule</label>
+            <label class="col-md-3 control-label">Location</label>
             <div class="col-md-9">
-                <input name="attendingSchedule" type="text" class="form-control" data-ng-model="serviceDirectory.attendingSchedule" id="attendingSchedule" placeholder="Ex: Mon-Fri (08:00 - 14:00)">
+                <text-angular ta-toolbar="[['h2','h3','h4'],['bold','italics','underline','ul', 'ol'],['insertLink']]" class="location" name="location" data-ng-model="serviceDirectory.location" id="location" placeholder="Location"></text-angular>                
             </div>
         </div>
-
         <div class="form-group">
             <label class="col-md-3 control-label">Published</label>
             <div class="col-md-1">
