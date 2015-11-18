@@ -30,16 +30,12 @@
        
         <div class="form-group">
             <label class="col-md-3 control-label">Attending Schedule</label>
-            <div class="col-md-9">
-                {{serviceDirectory.attendingSchedule}}
-            </div>
+            <div ta-bind name="attendingSchedule" data-ng-model="serviceDirectory.attendingSchedule" id="attendingSchedule" class="col-md-9"></div>
         </div> 
         
         <div class="form-group">
             <label class="col-md-3 control-label">Location</label>
-            <div class="col-md-9">
-                {{serviceDirectory.location}}
-            </div>
+            <div ta-bind name="location" data-ng-model="serviceDirectory.location" id="location" class="col-md-9">               </div>
         </div>  
         
 

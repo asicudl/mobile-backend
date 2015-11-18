@@ -1,4 +1,11 @@
 <section data-ng-controller="ServiceDirectoryController" data-ng-init="find()">
+    <a href="#!/servicedirectory/create">
+        <button type="button" class="btn btn-default buttonNew">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span> New</span>
+        </button>
+    </a>
+    <div class="titleServices">Services</div>    
   <ul class="serviceDirectoryItems unstyled">
     <li data-ng-repeat="serviceDirectory in serviceDirectoryItems">
             <div class="col-md-3">

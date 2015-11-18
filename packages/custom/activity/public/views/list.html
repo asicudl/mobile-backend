@@ -1,4 +1,11 @@
 <section data-ng-controller="ActivityEventsController" data-ng-init="find()">
+    <a href="#!/activityevents/create">
+        <button type="button" class="btn btn-default buttonNew">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span> New</span>
+        </button>
+    </a>
+    <div class="titleActivities">Activities</div>    
   <ul class="activityEvents unstyled">
     <li data-ng-repeat="activityEvent in activityEvents">
             <div class="col-md-3">

@@ -23,7 +23,7 @@
         <div class="form-group" ng-class="{'has-error' : submitted && activityEventsForm.dueDate.$invalid}">
             <label class="col-md-3 control-label">Due date:</label>
             <div class="col-md-9">
-                <datetimepicker id="dueDate" name="dueDate" starting-day="1" min-date="minDate" show-weeks="true" hour-step="1" minute-step="15" data-ng-model="dueDate" show-meridian="false" date-format="dd-MMM-yyyy" date-options="" date-disabled="false" readonly-time="false" required></datetimepicker>
+                <datetimepicker id="dueDate" name="dueDate" starting-day="1" min-date="minDate" show-weeks="true" hour-step="1" minute-step="15" data-ng-model="activityEvent.dueDate" show-meridian="false" date-format="dd-MMM-yyyy" date-options="" date-disabled="false" readonly-time="false" required></datetimepicker>
                 <div ng-show="submitted && activityEventsForm.dueDate.$invalid" class="help-block">
                     <p ng-show="activityEventsForm.dueDate.$invalid">Due Date is required</p>
                 </div>

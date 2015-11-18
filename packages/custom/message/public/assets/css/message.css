@@ -8,3 +8,15 @@
 .rcplist li{
     list-style: none;
 }
+
+.buttonNew {
+    position: fixed; 
+    top: 70px; 
+    right: 70px;
+}
+
+.titleMessages {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}

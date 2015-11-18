@@ -22,11 +22,11 @@ AgendaEvents.register(function(app, auth, database, authservice) {
         'title': 'Agenda',
         'link': 'all agenda events'
     });
-    AgendaEvents.menus.add({
+    /*AgendaEvents.menus.add({
         'roles': ['authenticated'],
         'title': 'New Event',
         'link': 'create agenda event'
-    });
+    });*/
 
     AgendaEvents.aggregateAsset('css', 'agendaEvents.css');
 

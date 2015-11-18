@@ -22,11 +22,11 @@ ServiceDirectory.register(function(app, auth, database, authservice) {
         'title': 'Services',
         'link': 'all service directory items'
     });
-    ServiceDirectory.menus.add({
+/*    ServiceDirectory.menus.add({
         'roles': ['authenticated'],
         'title': 'New Service',
         'link': 'create service directory item'
-    });
+    });*/
 
     ServiceDirectory.aggregateAsset('css', 'serviceDirectory.css');
 

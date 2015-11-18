@@ -22,11 +22,11 @@ Message.menus.add({
     'title': 'Messages',
     'link': 'all messages'
   });
-  Message.menus.add({
+/*  Message.menus.add({
     'roles': ['authenticated'],
     'title': 'New Message',
     'link': 'create message'
-  });
+  });*/
   
   Message.aggregateAsset('css', 'message.css');
 

@@ -1,4 +1,11 @@
 <section data-ng-controller="AgendaEventsController" data-ng-init="find()">
+    <a href="#!/agendaevents/create">
+        <button type="button" class="btn btn-default buttonNew">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span> New</span>
+        </button>
+    </a>
+    <div class="titleEvents">Events</div>
   <ul class="agendaEvents unstyled">
     <li data-ng-repeat="agendaEvent in agendaEvents">
             
