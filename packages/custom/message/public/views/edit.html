@@ -52,11 +52,11 @@
                 <i class="glyphicon glyphicon-remove"></i>
             </a>
           </li>
-        </ul> 
+        </ul>
        
         <label ng-show="message.receptientsIds.length > 0" class="col-md-3 control-label"><span data-ng-hide="true">Receptients List</span></label>
         <div class="col-md-4">
-            <input name="newrcp" type="text" class="form-control" data-ng-model="newrcp" id="newrcp" placeholder="Receptient id"  ng-required="tempReceptients.length == 0">
+            <input name="newrcp" type="text" class="form-control" data-ng-model="newrcp" id="newrcp" placeholder="Receptient id"  ng-required="message.receptientsIds.length == 0">
             <div ng-show="submitted && messageForm.newrcp.$invalid" class="help-block">
                 <p ng-show="messageForm.newrcp.$error.required">Recipients are required</p>
             </div>
