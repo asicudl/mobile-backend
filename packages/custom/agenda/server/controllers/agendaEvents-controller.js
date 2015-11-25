@@ -32,6 +32,12 @@ var asFarLastWeek = function (curdate){
     return dateReturn;
 };
 
+
+//to use in the routes js
+exports.hasRol = function(req) {
+    return isGroupPublisher(req) || isGroupAdmin(req);
+};
+
 /**
  * Find agenda event by id
  */

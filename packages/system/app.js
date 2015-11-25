@@ -18,7 +18,9 @@ SystemPackage.register(function(app, auth, database) {
   SystemPackage.routes(app, auth, database);
 
   SystemPackage.aggregateAsset('css', 'common.css');
-  SystemPackage.angularDependencies(['ui.router', 'mean-factory-interceptor']);
+  SystemPackage.aggregateAsset('js','underscore-min.js', {global:true});
+  SystemPackage.aggregateAsset('js','angular-underscore-module.js', {global:true});  
+  SystemPackage.angularDependencies(['ui.router', 'mean-factory-interceptor','underscore']);
 
   // The middleware in config/express will run before this code
 
