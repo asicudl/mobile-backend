@@ -18,7 +18,7 @@ Message.register(function(app, auth, database,authservice) {
 
   //We are adding a link to the main menu for all authenticated users
 Message.menus.add({
-    'roles': ['authenticated'],
+    'roles': ['messagesPublisher','messagesAdmin'],
     'title': 'Messages',
     'link': 'all messages'
   });

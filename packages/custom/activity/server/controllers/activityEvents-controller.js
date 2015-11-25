@@ -16,6 +16,11 @@ var isGroupAdmin = function(req) {
     return (_.contains(req.user.roles,'activitiesAdmin'));
 };
 
+//to use in the routes js
+exports.hasRol = function(req) {
+    return isGroupPublisher(req) || isGroupAdmin(req);
+};
+
 /**
  * Find activity event by id
  */

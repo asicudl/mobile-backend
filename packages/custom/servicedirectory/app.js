@@ -18,7 +18,7 @@ ServiceDirectory.register(function(app, auth, database, authservice) {
 
     //We are adding a link to the main menu for all authenticated users
     ServiceDirectory.menus.add({
-        'roles': ['authenticated'],
+        'roles': ['servicesPublisher','servicesAdmin'],
         'title': 'Services',
         'link': 'all service directory items'
     });

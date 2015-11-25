@@ -18,7 +18,7 @@ ActivityEvents.register(function(app, auth, database, authservice) {
 
     //We are adding a link to the main menu for all authenticated users
     ActivityEvents.menus.add({
-        'roles': ['authenticated'],
+        'roles': ['activitiesPublisher','activitiesAdmin'],
         'title': 'Activities',
         'link': 'all activity events'
     });

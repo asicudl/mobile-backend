@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', 'Global', 'Menus',
-  function($scope, $rootScope, Global, Menus) {
+angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', 'Global', 'Menus', '_',
+  function($scope, $rootScope, Global, Menus, _ ) {
     $scope.global = Global;
     $scope.menus = {};
 
@@ -23,7 +23,11 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
     queryMenu('main', defaultMainMenu);
     queryMenu('account', []);
 
-
+    $scope.hasAccessMenu = function(userRoles, itemRoles){
+      var res = _.intersection(userRoles, itemRoles);
+      return res.length > 0;
+    };
+      
     $scope.isCollapsed = false;
 
     $rootScope.$on('loggedin', function() {

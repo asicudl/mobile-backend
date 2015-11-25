@@ -16,6 +16,11 @@ var isGroupAdmin = function(req) {
     return (_.contains(req.user.roles,'servicesAdmin'));
 };
 
+//to use in the routes js
+exports.hasRol = function(req) {
+    return isGroupPublisher(req) || isGroupAdmin(req);
+};
+
 /**
  * Find service directory item by id
  */
