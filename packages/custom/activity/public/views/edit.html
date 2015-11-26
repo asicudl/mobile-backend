@@ -34,6 +34,9 @@
             <label for="inputImage" class="col-md-3 control-label">Image<br/> (150x100)</label>
             <div class="col-md-9">
                 <img id="img" class="activityEvent_img" src="{{loadedimg}}" />
+                <a ng-show="loadedimg" class="btn vertical-top" data-ng-click="deleteFile();" title="Delete the image">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </a>
                 <div ng-show="submitted && activityEventsForm.image.$invalid" class="help-block">
                     <p ng-show="activityEventsForm.title.$error.badwidth">Incorrect width or height is required</p>
                 </div>
