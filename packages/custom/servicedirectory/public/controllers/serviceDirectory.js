@@ -127,5 +127,10 @@ angular.module('mean.servicedirectory')
                          };
                          r.readAsDataURL(f);
                      };
+                     
+                      $scope.deleteFile = function(){
+                         $scope.loadedimg = '';
+                         delete $scope.activityEvent.image;
+                     };
                  }
                 ]);

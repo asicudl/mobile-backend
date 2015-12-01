@@ -125,5 +125,10 @@ angular.module('mean.activity')
                          };
                          r.readAsDataURL(f);
                      };
+                     
+                     $scope.deleteFile = function(){
+                         $scope.loadedimg = '';
+                         delete $scope.activityEvent.image;
+                     };
                  }
                 ]);
