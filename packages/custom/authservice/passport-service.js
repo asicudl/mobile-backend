@@ -18,7 +18,7 @@ module.exports = function(passport){
                 url: config.ldap.url,
                 bindCredentials: '',
                 searchBase: config.ldap.base,
-                searchFilter: '(&(uid={{username}})(objectClass=posixAccoun))'
+                searchFilter: '(&(uid={{username}})(objectClass=posixAccount))'
             }
         },
         
