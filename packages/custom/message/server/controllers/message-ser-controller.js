@@ -29,8 +29,12 @@ var asFarLastWeek = function (curdate){
     dateReturn.setDate(today.getDate() - 7);
 
    try{
-      var currentDate = new Date(curdate);	
-      dateReturn = (currentDate < dateReturn) ? dateReturn : currentDate;
+      if (curdate){
+        var currentDate = new Date(curdate);	
+        dateReturn = (currentDate < dateReturn) ? dateReturn : currentDate;
+      }else{
+        dateReturn = dateReturn;   
+      }
    }catch (error){
     	console.log ('error transforming date' + error); 
    }
